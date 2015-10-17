@@ -23,13 +23,28 @@ class SpriteComponent extends Component {
 class Snowflake extends Component {}
 
 class Cursor extends Component {}
+
 class Tile extends Component {}
+
 class Tower extends Component {
   String name;
-  Tower(this.name);
+  int range;
+  double cooldown;
+  double maxCooldown;
+  double ammoVelocity;
+  double bulletVelocity;
+  Tower(this.name) {
+    this.cooldown = 0.0;
+    this.range = towerRanges[name];
+    this.maxCooldown = towerCooldowns[name];
+    this.bulletVelocity = bulletVelocities[name];
+  }
 }
+
 class BlocksTower extends Component {}
+
 class Enemy extends Component {}
+
 class SelectedTower extends Component {
   String name;
   SelectedTower(this.name);
