@@ -21,7 +21,7 @@ class Game extends GameBase {
     var enemy = addEntity([new Position(-16, 320), new Velocity(20, 0), new SpriteComponent('snowman'), new Enemy('snowman')]);
     gm.add(enemy, 'enemy');
 
-    addEntity([new Position(0, 0), new Velocity(10, 10), new SpriteComponent('cursor'), new Cursor(), new GridPosition(0, 0), new Snowflakes(100)]);
+    addEntity([new Position(0, 0), new Velocity(10, 10), new SpriteComponent('cursor'), new Cursor(), new GridPosition(0, 0)]);
 
     for (int x = 0; x < 30; x++) {
       for (int y = 0; y < 20; y++) {
@@ -51,13 +51,12 @@ class Game extends GameBase {
         new SelectedTowerRenderingSystem(ctx, spriteSheet),
         new CursorRenderingSystem(ctx, spriteSheet),
         new EnemyHealtRenderingSystem(ctx),
-        new SnowflakeRenderingSystem(ctx),
+        new GameStateRenderingSystem(ctx),
 
         new FpsRenderingSystem(ctx, fillStyle: 'black'),
 
         new EnemyInRangeDetectionSystem(),
         new CooldownSystem(),
-        new BulletCollisionCountdownSystem(),
         new EnemySpawner(),
         new BulletCollisionSystem(),
         new ExpirationSystem()

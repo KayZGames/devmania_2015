@@ -4,6 +4,7 @@ class MouseInputSystem extends EntityProcessingSystem {
   Mapper<GridPosition> gpm;
   Mapper<Position> pm;
   Mapper<SelectedTower> stm;
+  Mapper<Inventory> im;
   GridPositionManager gpManager;
 
   Point<int> offset = new Point<int>(0, 0);
@@ -39,7 +40,10 @@ class MouseInputSystem extends EntityProcessingSystem {
             ..changedInWorld();
         } else if (stm.has(entity) && gpManager.canPlaceTower(gp.x, gp.y)) {
           var name = stm[entity].name;
-          world.createAndAddEntity([new GridPosition(gp.x, gp.y), new SpriteComponent('gun-$name'), new Tower(name), new Cooldown(towerCooldowns[name])]);
+          if (towerCosts[name] <= gameState.snowflakes) {
+            world.createAndAddEntity([new GridPosition(gp.x, gp.y), new SpriteComponent('gun-$name'), new Tower(name), new Cooldown(towerCooldowns[name])]);
+            gameState.snowflakes -= towerCosts[name];
+          }
         }
       }
       clicked = false;

@@ -45,27 +45,21 @@ class Cooldown extends Component {
 }
 
 class Bullet extends Component {
-  double collisionTimer;
-  double maxTime;
-  Bullet(this.collisionTimer) {
-    this.maxTime = collisionTimer;
-  }
-}
-
-class BulletCollisionCheck extends Component {
-  double timer;
-  BulletCollisionCheck(this.timer);
+  int damage;
+  Bullet(this.damage);
 }
 
 class BlocksTower extends Component {}
 
 class Enemy extends Component {
   String name;
+  int worth;
   double health;
   double maxHealth;
   Enemy(this.name) {
     this.health = enemyHealth[name];
     this.maxHealth = enemyHealth[name];
+    this.worth = enemyWorth[name];
   }
 }
 
@@ -82,9 +76,4 @@ class ExpirationTimer extends Component {
 class Inventory extends Component {
   int cost;
   Inventory(this.cost);
-}
-
-class Snowflakes extends Component {
-  int value;
-  Snowflakes(this.value);
 }

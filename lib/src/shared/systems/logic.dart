@@ -52,8 +52,8 @@ class EnemyInRangeDetectionSystem extends EntitySystem {
               new Velocity(
                   t.bulletVelocity * cos(angle), t.bulletVelocity * sin(angle)),
               new SpriteComponent(t.name),
-              new Bullet(bulletTime / 2),
-              new ExpirationTimer(10.0)
+              new Bullet(bulletDamage[t.name]),
+              new ExpirationTimer(t.range / t.bulletVelocity)
             ]);
             gm.add(bullet, 'bullet');
             c.cooldown = c.maxCooldown;
@@ -70,9 +70,10 @@ class EnemyInRangeDetectionSystem extends EntitySystem {
 class BulletCollisionSystem extends EntityProcessingSystem {
   Mapper<Position> pm;
   Mapper<Enemy> em;
+  Mapper<Bullet> bm;
   GroupManager gm;
   BulletCollisionSystem()
-      : super(Aspect.getAspectForAllOf([Bullet, BulletCollisionCheck]));
+      : super(Aspect.getAspectForAllOf([Bullet]));
 
   @override
   void processEntity(Entity entity) {
@@ -83,11 +84,12 @@ class BulletCollisionSystem extends EntityProcessingSystem {
       var ep = pm[enemyEntity];
       var distX = ep.value.x - p.value.x;
       var distY = ep.value.y - p.value.y;
-      if (distX * distX + distY * distY < 576) {
+      if (distX * distX + distY * distY < 144) {
         hasCollision = true;
         var enemy = em[enemyEntity];
-        enemy.health -= 1.0;
+        enemy.health -= bm[entity].damage;
         if (enemy.health <= 0.0) {
+          gameState.snowflakes += enemy.worth;
           enemyEntity.deleteFromWorld();
           var maxParticle = 2 + random.nextInt(8);
           for (int i = 0; i < maxParticle; i++) {
@@ -105,10 +107,6 @@ class BulletCollisionSystem extends EntityProcessingSystem {
     });
     if (hasCollision) {
       entity.deleteFromWorld();
-    } else {
-      entity
-        ..removeComponent(BulletCollisionCheck)
-        ..changedInWorld();
     }
   }
 }
@@ -133,23 +131,6 @@ class ExpirationSystem extends EntityProcessingSystem {
     et.timer -= world.delta;
     if (et.timer <= 0.0) {
       entity.deleteFromWorld();
-    }
-  }
-}
-
-class BulletCollisionCountdownSystem extends EntityProcessingSystem {
-  Mapper<Bullet> bm;
-  BulletCollisionCountdownSystem() : super(Aspect.getAspectForAllOf([Bullet]));
-
-  @override
-  void processEntity(Entity entity) {
-    var b = bm[entity];
-    b.collisionTimer -= world.delta;
-    if (b.collisionTimer <= 0.0) {
-      b.collisionTimer = b.maxTime / 2;
-      entity
-        ..addComponent(new BulletCollisionCheck(b.maxTime))
-        ..changedInWorld();
     }
   }
 }

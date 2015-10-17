@@ -145,16 +145,14 @@ class EnemyHealtRenderingSystem extends EntityProcessingSystem {
   }
 }
 
-class SnowflakeRenderingSystem extends EntityProcessingSystem {
+class GameStateRenderingSystem extends VoidEntitySystem {
   static const String label = 'Snowflakes: ';
-  Mapper<Snowflakes> sm;
   CanvasRenderingContext2D ctx;
-  SnowflakeRenderingSystem(this.ctx)
-      : super(Aspect.getAspectForAllOf([Snowflakes]));
+  GameStateRenderingSystem(this.ctx);
 
   @override
-  void processEntity(Entity entity) {
-    var snowflakes = sm[entity].value;
+  void processSystem() {
+    var snowflakes = gameState.snowflakes;
 
     ctx
       ..save()
