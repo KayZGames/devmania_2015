@@ -26,7 +26,7 @@ class SpriteRenderingSystem extends EntityProcessingSystem {
   CanvasRenderingContext2D ctx;
   SpriteSheet sheet;
   SpriteRenderingSystem(this.ctx, this.sheet)
-      : super(Aspect.getAspectForAllOf([Position, SpriteComponent]));
+      : super(Aspect.getAspectForAllOf([Position, SpriteComponent]).exclude([GridPosition]));
 
   @override
   void processEntity(Entity entity) {
@@ -44,6 +44,36 @@ class SpriteRenderingSystem extends EntityProcessingSystem {
           sprite.src.height,
           p.value.x,
           p.value.y,
+          sprite.src.width,
+          sprite.src.height)
+      ..restore();
+  }
+}
+
+class GridPositionRenderingSystem extends EntityProcessingSystem {
+  Mapper<GridPosition> gpm;
+  Mapper<SpriteComponent> sm;
+
+  CanvasRenderingContext2D ctx;
+  SpriteSheet sheet;
+  GridPositionRenderingSystem(this.ctx, this.sheet) : super(Aspect.getAspectForAllOf([GridPosition, SpriteComponent]));
+
+  @override
+  void processEntity(Entity entity) {
+    var gp = gpm[entity];
+    var s = sm[entity].name;
+    var sprite = sheet[s];
+
+    ctx
+      ..save()
+      ..drawImageScaledFromSource(
+          sheet.image,
+          sprite.src.left,
+          sprite.src.top,
+          sprite.src.width,
+          sprite.src.height,
+          gp.x * 32,
+          gp.y * 32,
           sprite.src.width,
           sprite.src.height)
       ..restore();

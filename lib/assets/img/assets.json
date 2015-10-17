@@ -1,5 +1,13 @@
 {"frames": {
 
+"cursor":
+{
+	"frame": {"x":2,"y":68,"w":30,"h":28},
+	"rotated": false,
+	"trimmed": true,
+	"spriteSourceSize": {"x":0,"y":1,"w":30,"h":28},
+	"sourceSize": {"w":32,"h":32}
+},
 "snowman":
 {
 	"frame": {"x":2,"y":2,"w":32,"h":64},
@@ -15,6 +23,6 @@
 	"format": "RGBA8888",
 	"size": {"w":64,"h":128},
 	"scale": "1",
-	"smartupdate": "$TexturePacker:SmartUpdate:1fda085b6c607dcfa76675185fb5f080:c08ec8b00ecaf8c37d553911aae3f798:a759b6bbc8381ac9c472b28f589ad0d6$"
+	"smartupdate": "$TexturePacker:SmartUpdate:396b4ec14bf3370689e68684a407a6c8:c359b107b453f5ac731836520bafe1de:a759b6bbc8381ac9c472b28f589ad0d6$"
 }
 }

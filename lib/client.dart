@@ -15,13 +15,16 @@ class Game extends GameBase {
 
   void createEntities() {
     addEntity([new Position(0, 0), new Velocity(10, 10), new SpriteComponent('snowman')]);
+    addEntity([new Position(0, 0), new Velocity(10, 10), new SpriteComponent('cursor'), new Cursor(), new GridPosition(0, 0)]);
   }
   Map<int, List<EntitySystem>> getSystems() {
     return {
       GameBase.rendering: [
+        new MouseInputSystem(canvas),
         new CanvasCleaningSystem(canvas, fillStyle: 'black'),
         new SnowflakeRenderingSystem(ctx),
         new SpriteRenderingSystem(ctx, spriteSheet),
+        new GridPositionRenderingSystem(ctx, spriteSheet),
         new FpsRenderingSystem(ctx, fillStyle: 'white'),
       ],
       GameBase.physics: [
