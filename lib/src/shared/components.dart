@@ -31,7 +31,6 @@ class Tower extends Component {
   int range;
   double cooldown;
   double maxCooldown;
-  double ammoVelocity;
   double bulletVelocity;
   double rotation;
   Tower(this.name) {
@@ -45,10 +44,16 @@ class Tower extends Component {
 
 class Bullet extends Component {
   double collisionTimer;
-  Bullet(this.collisionTimer);
+  double maxTime;
+  Bullet(this.collisionTimer) {
+    this.maxTime = collisionTimer;
+  }
 }
 
-class BulletCollision extends Component {}
+class BulletCollisionCheck extends Component {
+  double timer;
+  BulletCollisionCheck(this.timer);
+}
 
 class BlocksTower extends Component {}
 
@@ -65,4 +70,9 @@ class Enemy extends Component {
 class SelectedTower extends Component {
   String name;
   SelectedTower(this.name);
+}
+
+class ExpirationTimer extends Component {
+  double timer;
+  ExpirationTimer(this.timer);
 }

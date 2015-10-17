@@ -37,14 +37,15 @@ class SpriteRenderingSystem extends EntityProcessingSystem {
 
     ctx
       ..save()
+      ..translate(p.value.x, p.value.y)
       ..drawImageScaledFromSource(
           sheet.image,
           sprite.src.left,
           sprite.src.top,
           sprite.src.width,
           sprite.src.height,
-          p.value.x,
-          p.value.y,
+          -sprite.src.width / 2,
+          -sprite.src.height / 2,
           sprite.src.width,
           sprite.src.height)
       ..restore();
@@ -156,8 +157,8 @@ class EnemyHealtRenderingSystem extends EntityProcessingSystem {
       ..save()
       ..strokeStyle = 'black'
       ..fillStyle = 'green'
-      ..strokeRect(p.value.x - 8, p.value.y - 8, 32, 6)
-      ..fillRect(p.value.x - 8, p.value.y - 8, 32 * e.health / e.maxHealth, 6)
+      ..strokeRect(p.value.x - 16, p.value.y - 24, 32, 6)
+      ..fillRect(p.value.x - 16, p.value.y - 24, 32 * e.health / e.maxHealth, 6)
       ..restore();
   }
 }

@@ -34,7 +34,7 @@
 },
 "pellet":
 {
-	"frame": {"x":54,"y":38,"w":2,"h":2},
+	"frame": {"x":60,"y":38,"w":2,"h":2},
 	"rotated": false,
 	"trimmed": true,
 	"spriteSourceSize": {"x":15,"y":15,"w":2,"h":2},
@@ -46,6 +46,14 @@
 	"rotated": false,
 	"trimmed": false,
 	"spriteSourceSize": {"x":0,"y":0,"w":32,"h":32},
+	"sourceSize": {"w":32,"h":32}
+},
+"snowman-explosion":
+{
+	"frame": {"x":54,"y":38,"w":4,"h":4},
+	"rotated": false,
+	"trimmed": true,
+	"spriteSourceSize": {"x":14,"y":14,"w":4,"h":4},
 	"sourceSize": {"w":32,"h":32}
 },
 "snowman":
@@ -87,6 +95,6 @@
 	"format": "RGBA8888",
 	"size": {"w":64,"h":128},
 	"scale": "1",
-	"smartupdate": "$TexturePacker:SmartUpdate:5c545007db4b931b6850fbf8988cbca7:4f0be999222ba89774807684011d72ed:a759b6bbc8381ac9c472b28f589ad0d6$"
+	"smartupdate": "$TexturePacker:SmartUpdate:2258ec4f1668b830a035b56aec0cc7bd:eefb1b70ce180ffe389779be34afcaa3:a759b6bbc8381ac9c472b28f589ad0d6$"
 }
 }

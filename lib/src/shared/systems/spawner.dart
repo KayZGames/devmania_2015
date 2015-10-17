@@ -6,7 +6,7 @@ class EnemySpawner extends IntervalEntitySystem {
 
   @override
   void processEntities(Iterable<Entity> entities) {
-    var enemy = world.createAndAddEntity([new Position(-16, 300), new Velocity(20, 0), new SpriteComponent('snowman'), new Enemy('snowman')]);
+    var enemy = world.createAndAddEntity([new Position(-16, 320), new Velocity(20, 0), new SpriteComponent('snowman'), new Enemy('snowman')]);
     gm.add(enemy, 'enemy');
   }
 }

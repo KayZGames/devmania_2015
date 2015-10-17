@@ -36,11 +36,11 @@ class EnemyInRangeDetectionSystem extends EntitySystem {
           var v = vm[entity];
           var tpx = tgp.x * 32;
           var tpy = tgp.y * 32;
-          var distX = p.value.x + 16 - tpx;
-          var distY = p.value.y + 16 - tpy;
-          var distanceSqared = distX * distX + distY * distY;
-          if (distanceSqared < t.range * t.range) {
-            var distance = sqrt(distanceSqared);
+          var distX = p.value.x - tpx;
+          var distY = p.value.y - tpy;
+          var distanceSquared = distX * distX + distY * distY;
+          if (distanceSquared < t.range * t.range) {
+            var distance = sqrt(distanceSquared);
             var bulletTime = distance / t.bulletVelocity;
             var angle = atan2(
                 distY + v.value.y * bulletTime, distX + v.value.x * bulletTime);
@@ -50,7 +50,8 @@ class EnemyInRangeDetectionSystem extends EntitySystem {
               new Velocity(
                   t.bulletVelocity * cos(angle), t.bulletVelocity * sin(angle)),
               new SpriteComponent(t.name),
-              new Bullet(bulletTime)
+              new Bullet(bulletTime / 2),
+              new ExpirationTimer(10.0)
             ]);
             gm.add(bullet, 'bullet');
             t.cooldown = t.maxCooldown;
@@ -69,25 +70,44 @@ class BulletCollisionSystem extends EntityProcessingSystem {
   Mapper<Enemy> em;
   GroupManager gm;
   BulletCollisionSystem()
-      : super(Aspect.getAspectForAllOf([Bullet, BulletCollision]));
+      : super(Aspect.getAspectForAllOf([Bullet, BulletCollisionCheck]));
 
   @override
   void processEntity(Entity entity) {
     var p = pm[entity];
-    entity.deleteFromWorld();
+    bool hasCollision = false;
     var enemyEntities = gm.getEntities('enemy');
     enemyEntities.forEach((enemyEntity) {
       var ep = pm[enemyEntity];
       var distX = ep.value.x - p.value.x;
       var distY = ep.value.y - p.value.y;
-      if (distX * distX + distY * distY < 900) {
+      if (distX * distX + distY * distY < 576) {
+        hasCollision = true;
         var enemy = em[enemyEntity];
         enemy.health -= 1.0;
         if (enemy.health <= 0.0) {
           enemyEntity.deleteFromWorld();
+          var maxParticle = 2 + random.nextInt(8);
+          for (int i = 0; i < maxParticle; i++) {
+            var angle = random.nextDouble() * 2 * PI;
+            var velocity = 15.0 + random.nextDouble() * 35.0;
+            world.createAndAddEntity([
+              new Position(ep.value.x, ep.value.y),
+              new Velocity(velocity * cos(angle), velocity * sin(angle)),
+              new SpriteComponent('${enemy.name}-explosion'),
+              new ExpirationTimer(2.0)
+            ]);
+          }
         }
       }
     });
+    if (hasCollision) {
+      entity.deleteFromWorld();
+    } else {
+      entity
+        ..removeComponent(BulletCollisionCheck)
+        ..changedInWorld();
+    }
   }
 }
 
@@ -101,6 +121,20 @@ class TowerCooldownSystem extends EntityProcessingSystem {
   }
 }
 
+class ExpirationSystem extends EntityProcessingSystem {
+  Mapper<ExpirationTimer> etm;
+  ExpirationSystem() : super(Aspect.getAspectForAllOf([ExpirationTimer]));
+
+  @override
+  void processEntity(Entity entity) {
+    var et = etm[entity];
+    et.timer -= world.delta;
+    if (et.timer <= 0.0) {
+      entity.deleteFromWorld();
+    }
+  }
+}
+
 class BulletCollisionCountdownSystem extends EntityProcessingSystem {
   Mapper<Bullet> bm;
   BulletCollisionCountdownSystem() : super(Aspect.getAspectForAllOf([Bullet]));
@@ -110,8 +144,9 @@ class BulletCollisionCountdownSystem extends EntityProcessingSystem {
     var b = bm[entity];
     b.collisionTimer -= world.delta;
     if (b.collisionTimer <= 0.0) {
+      b.collisionTimer = b.maxTime / 2;
       entity
-        ..addComponent(new BulletCollision())
+        ..addComponent(new BulletCollisionCheck(b.maxTime))
         ..changedInWorld();
     }
   }

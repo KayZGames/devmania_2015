@@ -18,7 +18,7 @@ class Game extends GameBase {
   void createEntities() {
     var gm = world.getManager(GroupManager) as GroupManager;
 
-    var enemy = addEntity([new Position(-16, 300), new Velocity(20, 0), new SpriteComponent('snowman'), new Enemy('snowman')]);
+    var enemy = addEntity([new Position(-16, 320), new Velocity(20, 0), new SpriteComponent('snowman'), new Enemy('snowman')]);
     gm.add(enemy, 'enemy');
 
     addEntity([new Position(0, 0), new Velocity(10, 10), new SpriteComponent('cursor'), new Cursor(), new GridPosition(0, 0)]);
@@ -61,6 +61,7 @@ class Game extends GameBase {
         new BulletCollisionCountdownSystem(),
         new EnemySpawner(),
         new BulletCollisionSystem(),
+        new ExpirationSystem()
       ]
     };
   }
