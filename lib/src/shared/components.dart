@@ -29,16 +29,20 @@ class Tile extends Component {}
 class Tower extends Component {
   String name;
   int range;
-  double cooldown;
-  double maxCooldown;
   double bulletVelocity;
   double rotation;
   Tower(this.name) {
-    this.cooldown = 0.0;
     this.range = towerRanges[name];
-    this.maxCooldown = towerCooldowns[name];
     this.bulletVelocity = bulletVelocities[name];
     this.rotation = 0.0;
+  }
+}
+
+class Cooldown extends Component {
+  double cooldown;
+  double maxCooldown;
+  Cooldown(this.maxCooldown) {
+    this.cooldown = 0.0;
   }
 }
 
@@ -76,3 +80,5 @@ class ExpirationTimer extends Component {
   double timer;
   ExpirationTimer(this.timer);
 }
+
+class Inventory extends Component {}

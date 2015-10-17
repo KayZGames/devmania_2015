@@ -39,7 +39,7 @@ class MouseInputSystem extends EntityProcessingSystem {
             ..changedInWorld();
         } else if (stm.has(entity) && gpManager.canPlaceTower(gp.x, gp.y)) {
           var name = stm[entity].name;
-          world.createAndAddEntity([new GridPosition(gp.x, gp.y), new SpriteComponent('gun-$name'), new Tower(name)]);
+          world.createAndAddEntity([new GridPosition(gp.x, gp.y), new SpriteComponent('gun-$name'), new Tower(name), new Cooldown(towerCooldowns[name])]);
         }
       }
       clicked = false;

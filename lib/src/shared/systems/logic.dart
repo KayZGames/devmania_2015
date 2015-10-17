@@ -19,6 +19,7 @@ class EnemyInRangeDetectionSystem extends EntitySystem {
   Mapper<Velocity> vm;
   Mapper<GridPosition> gpm;
   Mapper<Tower> tm;
+  Mapper<Cooldown> cm;
   GridPositionManager gpManager;
   GroupManager gm;
   EnemyInRangeDetectionSystem()
@@ -28,8 +29,9 @@ class EnemyInRangeDetectionSystem extends EntitySystem {
   void processEntities(Iterable<Entity> entities) {
     var towerEntities = gpManager.getTowers();
     towerEntities.forEach((towerEntity) {
-      var t = tm[towerEntity];
-      if (t.cooldown <= 0.0) {
+      var c = cm[towerEntity];
+      if (c.cooldown <= 0.0) {
+        var t = tm[towerEntity];
         entities.forEach((entity) {
           var tgp = gpm[towerEntity];
           var p = pm[entity];
@@ -54,7 +56,7 @@ class EnemyInRangeDetectionSystem extends EntitySystem {
               new ExpirationTimer(10.0)
             ]);
             gm.add(bullet, 'bullet');
-            t.cooldown = t.maxCooldown;
+            c.cooldown = c.maxCooldown;
           }
         });
       }
@@ -111,9 +113,9 @@ class BulletCollisionSystem extends EntityProcessingSystem {
   }
 }
 
-class TowerCooldownSystem extends EntityProcessingSystem {
-  Mapper<Tower> tm;
-  TowerCooldownSystem() : super(Aspect.getAspectForAllOf([Tower]));
+class CooldownSystem extends EntityProcessingSystem {
+  Mapper<Cooldown> tm;
+  CooldownSystem() : super(Aspect.getAspectForAllOf([Cooldown]));
 
   @override
   void processEntity(Entity entity) {

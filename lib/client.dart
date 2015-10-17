@@ -33,7 +33,7 @@ class Game extends GameBase {
     var slotX = firstTowerSlotX;
     towers.forEach((name) {
       addEntity([new GridPosition(slotX, 19), new SpriteComponent('towerslot'), new Tile()]);
-      addEntity([new GridPosition(slotX, 19), new SpriteComponent('gun-$name'), new Tower(name)]);
+      addEntity([new GridPosition(slotX, 19), new SpriteComponent('gun-$name'), new Tower(name), new Inventory()]);
       slotX++;
     });
 
@@ -53,15 +53,16 @@ class Game extends GameBase {
         new EnemyHealtRenderingSystem(ctx),
 
         new FpsRenderingSystem(ctx, fillStyle: 'black'),
-      ],
-      GameBase.physics: [
-        new MovementSystem(),
+
         new EnemyInRangeDetectionSystem(),
-        new TowerCooldownSystem(),
+        new CooldownSystem(),
         new BulletCollisionCountdownSystem(),
         new EnemySpawner(),
         new BulletCollisionSystem(),
         new ExpirationSystem()
+      ],
+      GameBase.physics: [
+        new MovementSystem(),
       ]
     };
   }

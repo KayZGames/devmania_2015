@@ -3,6 +3,7 @@ part of shared;
 
 class GridPositionManager extends Manager {
   Mapper<Tower> tm;
+  Mapper<Inventory> im;
   Mapper<BlocksTower> btm;
   Mapper<GridPosition> gpm;
   GroupManager gm;
@@ -12,7 +13,7 @@ class GridPositionManager extends Manager {
 
 
   void added(Entity e) {
-    if (tm.has(e)) {
+    if (tm.has(e) && !im.has(e)) {
       var gp = gpm[e];
       towerMap[gp.x][gp.y] = true;
       gm.add(e, 'tower');
