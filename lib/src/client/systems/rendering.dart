@@ -50,13 +50,13 @@ class SpriteRenderingSystem extends EntityProcessingSystem {
   }
 }
 
-class GridPositionRenderingSystem extends EntityProcessingSystem {
+abstract class GridPositionRenderingSystem extends EntityProcessingSystem {
   Mapper<GridPosition> gpm;
   Mapper<SpriteComponent> sm;
 
   CanvasRenderingContext2D ctx;
   SpriteSheet sheet;
-  GridPositionRenderingSystem(this.ctx, this.sheet) : super(Aspect.getAspectForAllOf([GridPosition, SpriteComponent]));
+  GridPositionRenderingSystem(this.ctx, this.sheet, Aspect aspect) : super(aspect.allOf([GridPosition, SpriteComponent]));
 
   @override
   void processEntity(Entity entity) {
@@ -78,4 +78,12 @@ class GridPositionRenderingSystem extends EntityProcessingSystem {
           sprite.src.height)
       ..restore();
   }
+}
+
+class CursorRenderingSystem extends GridPositionRenderingSystem {
+  CursorRenderingSystem(CanvasRenderingContext2D ctx, SpriteSheet sheet) : super(ctx, sheet, Aspect.getAspectForAllOf([Cursor]));
+}
+
+class TileRenderingSystem extends GridPositionRenderingSystem {
+  TileRenderingSystem(CanvasRenderingContext2D ctx, SpriteSheet sheet) : super(ctx, sheet, Aspect.getAspectForAllOf([Tile]));
 }

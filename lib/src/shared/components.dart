@@ -23,3 +23,4 @@ class SpriteComponent extends Component {
 class Snowflake extends Component {}
 
 class Cursor extends Component {}
+class Tile extends Component {}
