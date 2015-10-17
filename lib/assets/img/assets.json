@@ -2,15 +2,23 @@
 
 "cursor":
 {
-	"frame": {"x":70,"y":2,"w":30,"h":28},
+	"frame": {"x":66,"y":2,"w":28,"h":28},
 	"rotated": false,
 	"trimmed": true,
-	"spriteSourceSize": {"x":0,"y":1,"w":30,"h":28},
+	"spriteSourceSize": {"x":2,"y":2,"w":28,"h":28},
+	"sourceSize": {"w":32,"h":32}
+},
+"gun-pellet":
+{
+	"frame": {"x":96,"y":2,"w":8,"h":14},
+	"rotated": false,
+	"trimmed": true,
+	"spriteSourceSize": {"x":12,"y":6,"w":8,"h":14},
 	"sourceSize": {"w":32,"h":32}
 },
 "roadtile":
 {
-	"frame": {"x":36,"y":2,"w":32,"h":32},
+	"frame": {"x":2,"y":94,"w":32,"h":32},
 	"rotated": false,
 	"trimmed": false,
 	"spriteSourceSize": {"x":0,"y":0,"w":32,"h":32},
@@ -18,18 +26,34 @@
 },
 "snowman":
 {
-	"frame": {"x":2,"y":2,"w":32,"h":64},
+	"frame": {"x":2,"y":2,"w":30,"h":56},
 	"rotated": false,
-	"trimmed": false,
-	"spriteSourceSize": {"x":0,"y":0,"w":32,"h":64},
+	"trimmed": true,
+	"spriteSourceSize": {"x":0,"y":6,"w":30,"h":56},
 	"sourceSize": {"w":32,"h":64}
 },
 "snowtile":
 {
-	"frame": {"x":2,"y":68,"w":32,"h":32},
+	"frame": {"x":2,"y":60,"w":32,"h":32},
 	"rotated": false,
 	"trimmed": false,
 	"spriteSourceSize": {"x":0,"y":0,"w":32,"h":32},
+	"sourceSize": {"w":32,"h":32}
+},
+"towerbase":
+{
+	"frame": {"x":34,"y":34,"w":24,"h":24},
+	"rotated": false,
+	"trimmed": true,
+	"spriteSourceSize": {"x":4,"y":4,"w":24,"h":24},
+	"sourceSize": {"w":32,"h":32}
+},
+"towerslot":
+{
+	"frame": {"x":34,"y":2,"w":30,"h":30},
+	"rotated": false,
+	"trimmed": true,
+	"spriteSourceSize": {"x":1,"y":1,"w":30,"h":30},
 	"sourceSize": {"w":32,"h":32}
 }},
 "meta": {
@@ -39,6 +63,6 @@
 	"format": "RGBA8888",
 	"size": {"w":128,"h":128},
 	"scale": "1",
-	"smartupdate": "$TexturePacker:SmartUpdate:df243c2b9e4ba51076d75085742d8780:21ec6e1fc082c2302690feb9fb4c3c5b:a759b6bbc8381ac9c472b28f589ad0d6$"
+	"smartupdate": "$TexturePacker:SmartUpdate:5a05bb9f1c3509159e5847c4dab0dbf4:8aa5654647b7c1f4e1d1ed814efd7a13:a759b6bbc8381ac9c472b28f589ad0d6$"
 }
 }

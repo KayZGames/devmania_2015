@@ -24,3 +24,9 @@ class Snowflake extends Component {}
 
 class Cursor extends Component {}
 class Tile extends Component {}
+class Tower extends Component {}
+class BlocksTower extends Component {}
+class SelectedTower extends Component {
+  String name;
+  SelectedTower(this.name);
+}

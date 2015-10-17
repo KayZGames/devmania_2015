@@ -11,10 +11,12 @@ part 'src/client/systems/rendering.dart';
 
 class Game extends GameBase {
 
-  Game() : super('devmania_2015', '#game', 960, 640, bodyDefsName: null);
+  Game() : super('devmania_2015', '#game', 960, 640, bodyDefsName: null) {
+    canvas.context2D.translate(16, 16);
+  }
 
   void createEntities() {
-    addEntity([new Position(0, 285), new Velocity(20, 0), new SpriteComponent('snowman')]);
+    addEntity([new Position(0, 270), new Velocity(20, 0), new SpriteComponent('snowman')]);
     addEntity([new Position(0, 0), new Velocity(10, 10), new SpriteComponent('cursor'), new Cursor(), new GridPosition(0, 0)]);
     for (int x = 0; x < 30; x++) {
       for (int y = 0; y < 20; y++) {
@@ -22,8 +24,14 @@ class Game extends GameBase {
       }
     }
     for (int x = 0; x < 30; x++) {
-      addEntity([new GridPosition(x, 10), new SpriteComponent('roadtile'), new Tile()]);
+      addEntity([new GridPosition(x, 10), new SpriteComponent('roadtile'), new Tile(), new BlocksTower()]);
     }
+    var slotX = firstTowerSlotX;
+    towers.forEach((name) {
+      addEntity([new GridPosition(slotX, 19), new SpriteComponent('towerslot'), new Tile()]);
+      addEntity([new GridPosition(slotX, 19), new SpriteComponent('gun-$name'), new Tower()]);
+      slotX++;
+    });
 
   }
   Map<int, List<EntitySystem>> getSystems() {
@@ -35,6 +43,8 @@ class Game extends GameBase {
 
         new TileRenderingSystem(ctx, spriteSheet),
         new SpriteRenderingSystem(ctx, spriteSheet),
+        new TowerRenderingSystem(ctx, spriteSheet),
+        new SelectedTowerRenderingSystem(ctx, spriteSheet),
         new CursorRenderingSystem(ctx, spriteSheet),
 
         new FpsRenderingSystem(ctx, fillStyle: 'white'),
@@ -45,5 +55,11 @@ class Game extends GameBase {
       ]
     };
   }
+
+  onInit() {
+    world.addManager(new GridPositionManager());
+  }
+
+
 }
 

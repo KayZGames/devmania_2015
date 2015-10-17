@@ -26,7 +26,8 @@ class SpriteRenderingSystem extends EntityProcessingSystem {
   CanvasRenderingContext2D ctx;
   SpriteSheet sheet;
   SpriteRenderingSystem(this.ctx, this.sheet)
-      : super(Aspect.getAspectForAllOf([Position, SpriteComponent]).exclude([GridPosition]));
+      : super(Aspect.getAspectForAllOf([Position, SpriteComponent])
+            .exclude([GridPosition]));
 
   @override
   void processEntity(Entity entity) {
@@ -56,24 +57,29 @@ abstract class GridPositionRenderingSystem extends EntityProcessingSystem {
 
   CanvasRenderingContext2D ctx;
   SpriteSheet sheet;
-  GridPositionRenderingSystem(this.ctx, this.sheet, Aspect aspect) : super(aspect.allOf([GridPosition, SpriteComponent]));
+  GridPositionRenderingSystem(this.ctx, this.sheet, Aspect aspect)
+      : super(aspect.allOf([GridPosition, SpriteComponent]));
 
   @override
   void processEntity(Entity entity) {
     var gp = gpm[entity];
     var s = sm[entity].name;
-    var sprite = sheet[s];
+    drawOnGrid(gp, s);
+  }
 
+  void drawOnGrid(GridPosition gp, String name, [double alpha = 1.0]) {
+    var sprite = sheet[name];
     ctx
       ..save()
+      ..globalAlpha = alpha
       ..drawImageScaledFromSource(
           sheet.image,
           sprite.src.left,
           sprite.src.top,
           sprite.src.width,
           sprite.src.height,
-          gp.x * 32,
-          gp.y * 32,
+          gp.x * 32 + sprite.dst.left,
+          gp.y * 32 + sprite.dst.top,
           sprite.src.width,
           sprite.src.height)
       ..restore();
@@ -81,9 +87,36 @@ abstract class GridPositionRenderingSystem extends EntityProcessingSystem {
 }
 
 class CursorRenderingSystem extends GridPositionRenderingSystem {
-  CursorRenderingSystem(CanvasRenderingContext2D ctx, SpriteSheet sheet) : super(ctx, sheet, Aspect.getAspectForAllOf([Cursor]));
+  CursorRenderingSystem(CanvasRenderingContext2D ctx, SpriteSheet sheet)
+      : super(ctx, sheet, Aspect.getAspectForAllOf([Cursor]));
 }
 
 class TileRenderingSystem extends GridPositionRenderingSystem {
-  TileRenderingSystem(CanvasRenderingContext2D ctx, SpriteSheet sheet) : super(ctx, sheet, Aspect.getAspectForAllOf([Tile]));
+  TileRenderingSystem(CanvasRenderingContext2D ctx, SpriteSheet sheet)
+      : super(ctx, sheet, Aspect.getAspectForAllOf([Tile]));
+}
+
+class TowerRenderingSystem extends GridPositionRenderingSystem {
+  TowerRenderingSystem(CanvasRenderingContext2D ctx, SpriteSheet sheet)
+      : super(ctx, sheet, Aspect.getAspectForAllOf([Tower]));
+
+  @override
+  void processEntity(Entity entity) {
+    var gp = gpm[entity];
+    drawOnGrid(gp, 'towerbase');
+    super.processEntity(entity);
+  }
+}
+
+class SelectedTowerRenderingSystem extends GridPositionRenderingSystem {
+  Mapper<SelectedTower> stm;
+  SelectedTowerRenderingSystem(CanvasRenderingContext2D ctx, SpriteSheet sheet)
+      : super(ctx, sheet, Aspect.getAspectForAllOf([SelectedTower]));
+
+  @override
+  void processEntity(Entity entity) {
+    var gp = gpm[entity];
+    drawOnGrid(gp, 'towerbase', 0.3);
+    drawOnGrid(gp, 'gun-${stm[entity].name}', 0.3);
+  }
 }
