@@ -1,24 +1,5 @@
 part of client;
 
-class SnowflakeRenderingSystem extends EntityProcessingSystem {
-  Mapper<Position> pm;
-  CanvasRenderingContext2D ctx;
-
-  SnowflakeRenderingSystem(this.ctx)
-      : super(Aspect.getAspectForAllOf([Position]));
-
-  @override
-  void processEntity(Entity entity) {
-    var p = pm[entity];
-
-    ctx
-      ..save()
-      ..fillStyle = 'white'
-      ..fillRect(p.value.x, p.value.y, 1, 1)
-      ..restore();
-  }
-}
-
 class SpriteRenderingSystem extends EntityProcessingSystem {
   Mapper<Position> pm;
   Mapper<SpriteComponent> sm;
@@ -68,7 +49,8 @@ abstract class GridPositionRenderingSystem extends EntityProcessingSystem {
     drawOnGrid(gp, s);
   }
 
-  void drawOnGrid(GridPosition gp, String name, [double rotation = 0.0, double alpha = 1.0]) {
+  void drawOnGrid(GridPosition gp, String name,
+      [double rotation = 0.0, double alpha = 1.0]) {
     var sprite = sheet[name];
     ctx
       ..save()
@@ -159,6 +141,34 @@ class EnemyHealtRenderingSystem extends EntityProcessingSystem {
       ..fillStyle = 'green'
       ..strokeRect(p.value.x - 16, p.value.y - 24, 32, 6)
       ..fillRect(p.value.x - 16, p.value.y - 24, 32 * e.health / e.maxHealth, 6)
+      ..restore();
+  }
+}
+
+class SnowflakeRenderingSystem extends EntityProcessingSystem {
+  static const String label = 'Snowflakes: ';
+  Mapper<Snowflakes> sm;
+  CanvasRenderingContext2D ctx;
+  SnowflakeRenderingSystem(this.ctx)
+      : super(Aspect.getAspectForAllOf([Snowflakes]));
+
+  @override
+  void processEntity(Entity entity) {
+    var snowflakes = sm[entity].value;
+
+    ctx
+      ..save()
+      ..font = '16px Verdana'
+      ..lineWidth = 1
+      ..strokeStyle = 'black'
+      ..fillStyle = '#6ba3ff';
+
+    var valueWidth = ctx.measureText('$snowflakes').width;
+    ctx
+      ..strokeText(label, 750, 0)
+      ..fillText(label, 750, 0)
+      ..strokeText('$snowflakes', 920 - valueWidth, 0)
+      ..fillText('$snowflakes', 920 - valueWidth, 0)
       ..restore();
   }
 }

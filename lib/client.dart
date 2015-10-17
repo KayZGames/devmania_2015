@@ -21,7 +21,8 @@ class Game extends GameBase {
     var enemy = addEntity([new Position(-16, 320), new Velocity(20, 0), new SpriteComponent('snowman'), new Enemy('snowman')]);
     gm.add(enemy, 'enemy');
 
-    addEntity([new Position(0, 0), new Velocity(10, 10), new SpriteComponent('cursor'), new Cursor(), new GridPosition(0, 0)]);
+    addEntity([new Position(0, 0), new Velocity(10, 10), new SpriteComponent('cursor'), new Cursor(), new GridPosition(0, 0), new Snowflakes(100)]);
+
     for (int x = 0; x < 30; x++) {
       for (int y = 0; y < 20; y++) {
         addEntity([new GridPosition(x, y), new SpriteComponent('snowtile'), new Tile()]);
@@ -33,7 +34,7 @@ class Game extends GameBase {
     var slotX = firstTowerSlotX;
     towers.forEach((name) {
       addEntity([new GridPosition(slotX, 19), new SpriteComponent('towerslot'), new Tile()]);
-      addEntity([new GridPosition(slotX, 19), new SpriteComponent('gun-$name'), new Tower(name), new Inventory()]);
+      addEntity([new GridPosition(slotX, 19), new SpriteComponent('gun-$name'), new Tower(name), new Inventory(towerCosts[name])]);
       slotX++;
     });
 
@@ -43,7 +44,6 @@ class Game extends GameBase {
       GameBase.rendering: [
         new MouseInputSystem(canvas),
         new CanvasCleaningSystem(canvas, fillStyle: 'black'),
-        new SnowflakeRenderingSystem(ctx),
 
         new TileRenderingSystem(ctx, spriteSheet),
         new SpriteRenderingSystem(ctx, spriteSheet),
@@ -51,6 +51,7 @@ class Game extends GameBase {
         new SelectedTowerRenderingSystem(ctx, spriteSheet),
         new CursorRenderingSystem(ctx, spriteSheet),
         new EnemyHealtRenderingSystem(ctx),
+        new SnowflakeRenderingSystem(ctx),
 
         new FpsRenderingSystem(ctx, fillStyle: 'black'),
 

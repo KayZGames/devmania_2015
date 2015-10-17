@@ -20,8 +20,6 @@ class SpriteComponent extends Component {
   SpriteComponent(this.name);
 }
 
-class Snowflake extends Component {}
-
 class Cursor extends Component {}
 
 class Tile extends Component {}
@@ -81,4 +79,12 @@ class ExpirationTimer extends Component {
   ExpirationTimer(this.timer);
 }
 
-class Inventory extends Component {}
+class Inventory extends Component {
+  int cost;
+  Inventory(this.cost);
+}
+
+class Snowflakes extends Component {
+  int value;
+  Snowflakes(this.value);
+}
