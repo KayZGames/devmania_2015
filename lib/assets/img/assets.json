@@ -1,0 +1,20 @@
+{"frames": {
+
+"snowman":
+{
+	"frame": {"x":2,"y":2,"w":32,"h":64},
+	"rotated": false,
+	"trimmed": false,
+	"spriteSourceSize": {"x":0,"y":0,"w":32,"h":64},
+	"sourceSize": {"w":32,"h":64}
+}},
+"meta": {
+	"app": "http://www.codeandweb.com/texturepacker ",
+	"version": "1.0",
+	"image": "assets.png",
+	"format": "RGBA8888",
+	"size": {"w":64,"h":128},
+	"scale": "1",
+	"smartupdate": "$TexturePacker:SmartUpdate:1fda085b6c607dcfa76675185fb5f080:c08ec8b00ecaf8c37d553911aae3f798:a759b6bbc8381ac9c472b28f589ad0d6$"
+}
+}

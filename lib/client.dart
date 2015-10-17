@@ -10,28 +10,23 @@ part 'src/client/systems/events.dart';
 part 'src/client/systems/rendering.dart';
 
 class Game extends GameBase {
-  CanvasElement hudCanvas;
-  CanvasRenderingContext2D hudCtx;
 
-  Game() : super.noAssets('devmania_2015', '#game', 800, 600, webgl: true) {
-    hudCanvas = querySelector('#hud');
-    hudCtx = hudCanvas.context2D;
-    hudCtx
-      ..textBaseline = 'top'
-      ..font = '16px Verdana';
-  }
+  Game() : super('devmania_2015', '#game', 800, 600, bodyDefsName: null);
+
   void createEntities() {
-    // addEntity([Component1, Component2]);
+    addEntity([new Position(0, 0), new Velocity(10, 10), new SpriteComponent('snowman')]);
   }
   Map<int, List<EntitySystem>> getSystems() {
     return {
       GameBase.rendering: [
-        new WebGlCanvasCleaningSystem(ctx),
-        new CanvasCleaningSystem(hudCanvas),
-        new FpsRenderingSystem(hudCtx, fillStyle: 'white'),
+        new CanvasCleaningSystem(canvas, fillStyle: 'black'),
+        new SnowflakeRenderingSystem(ctx),
+        new SpriteRenderingSystem(ctx, spriteSheet),
+        new FpsRenderingSystem(ctx, fillStyle: 'white'),
       ],
       GameBase.physics: [
-        // add at least one
+        new MovementSystem(),
+        new SnowflakeMovementSystem(),
       ]
     };
   }
