@@ -24,8 +24,12 @@ class Snowflake extends Component {}
 
 class Cursor extends Component {}
 class Tile extends Component {}
-class Tower extends Component {}
+class Tower extends Component {
+  String name;
+  Tower(this.name);
+}
 class BlocksTower extends Component {}
+class Enemy extends Component {}
 class SelectedTower extends Component {
   String name;
   SelectedTower(this.name);

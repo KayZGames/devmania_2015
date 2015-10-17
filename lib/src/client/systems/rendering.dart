@@ -116,7 +116,21 @@ class SelectedTowerRenderingSystem extends GridPositionRenderingSystem {
   @override
   void processEntity(Entity entity) {
     var gp = gpm[entity];
+    var st = stm[entity];
+    ctx
+      ..save()
+      ..strokeStyle = 'red'
+      ..fillStyle = 'red'
+      ..lineWidth = 1
+      ..beginPath()
+      ..arc(gp.x * 32, gp.y * 32, towerRanges[st.name], 0, 2 * PI)
+      ..closePath()
+      ..globalAlpha = 0.4
+      ..stroke()
+      ..globalAlpha = 0.05
+      ..fill()
+      ..restore();
     drawOnGrid(gp, 'towerbase', 0.3);
-    drawOnGrid(gp, 'gun-${stm[entity].name}', 0.3);
+    drawOnGrid(gp, 'gun-${st.name}', 0.3);
   }
 }

@@ -17,7 +17,7 @@ class Game extends GameBase {
 
   void createEntities() {
     addEntity([new Position(0, 270), new Velocity(20, 0), new SpriteComponent('snowman')]);
-    addEntity([new Position(0, 0), new Velocity(10, 10), new SpriteComponent('cursor'), new Cursor(), new GridPosition(0, 0)]);
+    addEntity([new Position(0, 0), new Velocity(10, 10), new SpriteComponent('cursor'), new Cursor(), new GridPosition(0, 0), new Enemy()]);
     for (int x = 0; x < 30; x++) {
       for (int y = 0; y < 20; y++) {
         addEntity([new GridPosition(x, y), new SpriteComponent('snowtile'), new Tile()]);
@@ -29,7 +29,7 @@ class Game extends GameBase {
     var slotX = firstTowerSlotX;
     towers.forEach((name) {
       addEntity([new GridPosition(slotX, 19), new SpriteComponent('towerslot'), new Tile()]);
-      addEntity([new GridPosition(slotX, 19), new SpriteComponent('gun-$name'), new Tower()]);
+      addEntity([new GridPosition(slotX, 19), new SpriteComponent('gun-$name'), new Tower(name)]);
       slotX++;
     });
 
