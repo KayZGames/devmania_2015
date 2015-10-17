@@ -134,3 +134,26 @@ class SelectedTowerRenderingSystem extends GridPositionRenderingSystem {
     drawOnGrid(gp, 'gun-${st.name}', 0.3);
   }
 }
+
+class EnemyHealtRenderingSystem extends EntityProcessingSystem {
+  Mapper<Enemy> em;
+  Mapper<Position> pm;
+
+  CanvasRenderingContext2D ctx;
+  EnemyHealtRenderingSystem(this.ctx)
+      : super(Aspect.getAspectForAllOf([Enemy, Position]));
+
+  @override
+  void processEntity(Entity entity) {
+    var e = em[entity];
+    var p = pm[entity];
+
+    ctx
+      ..save()
+      ..strokeStyle = 'black'
+      ..fillStyle = 'green'
+      ..strokeRect(p.value.x - 8, p.value.y - 8, 32, 6)
+      ..fillRect(p.value.x - 8, p.value.y - 8, 32 * e.health / e.maxHealth, 6)
+      ..restore();
+  }
+}

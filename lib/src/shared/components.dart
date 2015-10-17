@@ -41,9 +41,24 @@ class Tower extends Component {
   }
 }
 
+class Bullet extends Component {
+  double collisionTimer;
+  Bullet(this.collisionTimer);
+}
+
+class BulletCollision extends Component {}
+
 class BlocksTower extends Component {}
 
-class Enemy extends Component {}
+class Enemy extends Component {
+  String name;
+  double health;
+  double maxHealth;
+  Enemy(this.name) {
+    this.health = enemyHealth[name];
+    this.maxHealth = enemyHealth[name];
+  }
+}
 
 class SelectedTower extends Component {
   String name;

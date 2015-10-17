@@ -16,7 +16,11 @@ class Game extends GameBase {
   }
 
   void createEntities() {
-    addEntity([new Position(0, 300), new Velocity(20, 0), new SpriteComponent('snowman'), new Enemy()]);
+    var gm = world.getManager(GroupManager) as GroupManager;
+
+    var enemy = addEntity([new Position(-16, 300), new Velocity(20, 0), new SpriteComponent('snowman'), new Enemy('snowman')]);
+    gm.add(enemy, 'enemy');
+
     addEntity([new Position(0, 0), new Velocity(10, 10), new SpriteComponent('cursor'), new Cursor(), new GridPosition(0, 0)]);
     for (int x = 0; x < 30; x++) {
       for (int y = 0; y < 20; y++) {
@@ -46,6 +50,7 @@ class Game extends GameBase {
         new TowerRenderingSystem(ctx, spriteSheet),
         new SelectedTowerRenderingSystem(ctx, spriteSheet),
         new CursorRenderingSystem(ctx, spriteSheet),
+        new EnemyHealtRenderingSystem(ctx),
 
         new FpsRenderingSystem(ctx, fillStyle: 'black'),
       ],
@@ -53,6 +58,9 @@ class Game extends GameBase {
         new MovementSystem(),
         new EnemyInRangeDetectionSystem(),
         new TowerCooldownSystem(),
+        new BulletCollisionCountdownSystem(),
+        new EnemySpawner(),
+        new BulletCollisionSystem(),
       ]
     };
   }
