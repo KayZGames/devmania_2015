@@ -67,19 +67,21 @@ abstract class GridPositionRenderingSystem extends EntityProcessingSystem {
     drawOnGrid(gp, s);
   }
 
-  void drawOnGrid(GridPosition gp, String name, [double alpha = 1.0]) {
+  void drawOnGrid(GridPosition gp, String name, [double rotation = 0.0, double alpha = 1.0]) {
     var sprite = sheet[name];
     ctx
       ..save()
       ..globalAlpha = alpha
+      ..translate(gp.x * 32, gp.y * 32)
+      ..rotate(rotation)
       ..drawImageScaledFromSource(
           sheet.image,
           sprite.src.left,
           sprite.src.top,
           sprite.src.width,
           sprite.src.height,
-          gp.x * 32 + sprite.dst.left,
-          gp.y * 32 + sprite.dst.top,
+          -sprite.src.width / 2,
+          -sprite.src.height / 2,
           sprite.src.width,
           sprite.src.height)
       ..restore();
@@ -97,14 +99,16 @@ class TileRenderingSystem extends GridPositionRenderingSystem {
 }
 
 class TowerRenderingSystem extends GridPositionRenderingSystem {
+  Mapper<Tower> tm;
   TowerRenderingSystem(CanvasRenderingContext2D ctx, SpriteSheet sheet)
       : super(ctx, sheet, Aspect.getAspectForAllOf([Tower]));
 
   @override
   void processEntity(Entity entity) {
     var gp = gpm[entity];
+    var t = tm[entity];
     drawOnGrid(gp, 'towerbase');
-    super.processEntity(entity);
+    drawOnGrid(gp, 'gun-${t.name}', t.rotation);
   }
 }
 
@@ -130,8 +134,8 @@ class SelectedTowerRenderingSystem extends GridPositionRenderingSystem {
       ..globalAlpha = 0.05
       ..fill()
       ..restore();
-    drawOnGrid(gp, 'towerbase', 0.3);
-    drawOnGrid(gp, 'gun-${st.name}', 0.3);
+    drawOnGrid(gp, 'towerbase', 0.0, 0.3);
+    drawOnGrid(gp, 'gun-${st.name}', 0.0, 0.3);
   }
 }
 

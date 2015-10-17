@@ -33,11 +33,13 @@ class Tower extends Component {
   double maxCooldown;
   double ammoVelocity;
   double bulletVelocity;
+  double rotation;
   Tower(this.name) {
     this.cooldown = 0.0;
     this.range = towerRanges[name];
     this.maxCooldown = towerCooldowns[name];
     this.bulletVelocity = bulletVelocities[name];
+    this.rotation = 0.0;
   }
 }
 

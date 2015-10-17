@@ -44,6 +44,7 @@ class EnemyInRangeDetectionSystem extends EntitySystem {
             var bulletTime = distance / t.bulletVelocity;
             var angle = atan2(
                 distY + v.value.y * bulletTime, distX + v.value.x * bulletTime);
+            t.rotation = angle;
             var bullet = world.createAndAddEntity([
               new Position(tpx, tpy),
               new Velocity(

@@ -2,23 +2,39 @@
 
 "cursor":
 {
-	"frame": {"x":34,"y":70,"w":28,"h":28},
+	"frame": {"x":34,"y":78,"w":28,"h":28},
 	"rotated": false,
 	"trimmed": true,
 	"spriteSourceSize": {"x":2,"y":2,"w":28,"h":28},
 	"sourceSize": {"w":32,"h":32}
 },
-"gun-pellet":
+"fireball":
 {
-	"frame": {"x":54,"y":28,"w":8,"h":14},
+	"frame": {"x":54,"y":28,"w":8,"h":8},
 	"rotated": false,
 	"trimmed": true,
-	"spriteSourceSize": {"x":12,"y":6,"w":8,"h":14},
+	"spriteSourceSize": {"x":12,"y":12,"w":8,"h":8},
+	"sourceSize": {"w":32,"h":32}
+},
+"gun-fireball":
+{
+	"frame": {"x":36,"y":68,"w":14,"h":8},
+	"rotated": false,
+	"trimmed": true,
+	"spriteSourceSize": {"x":12,"y":12,"w":14,"h":8},
+	"sourceSize": {"w":32,"h":32}
+},
+"gun-pellet":
+{
+	"frame": {"x":36,"y":58,"w":14,"h":8},
+	"rotated": false,
+	"trimmed": true,
+	"spriteSourceSize": {"x":12,"y":12,"w":14,"h":8},
 	"sourceSize": {"w":32,"h":32}
 },
 "pellet":
 {
-	"frame": {"x":54,"y":44,"w":2,"h":2},
+	"frame": {"x":54,"y":38,"w":2,"h":2},
 	"rotated": false,
 	"trimmed": true,
 	"spriteSourceSize": {"x":15,"y":15,"w":2,"h":2},
@@ -71,6 +87,6 @@
 	"format": "RGBA8888",
 	"size": {"w":64,"h":128},
 	"scale": "1",
-	"smartupdate": "$TexturePacker:SmartUpdate:5ff0d7345b00b79b5e7cb1c982cf21f9:afa4bb36dcf8aa579467d303df2281f0:a759b6bbc8381ac9c472b28f589ad0d6$"
+	"smartupdate": "$TexturePacker:SmartUpdate:5c545007db4b931b6850fbf8988cbca7:4f0be999222ba89774807684011d72ed:a759b6bbc8381ac9c472b28f589ad0d6$"
 }
 }
