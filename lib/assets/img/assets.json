@@ -2,7 +2,7 @@
 
 "cursor":
 {
-	"frame": {"x":34,"y":76,"w":28,"h":28},
+	"frame": {"x":36,"y":78,"w":28,"h":28},
 	"rotated": false,
 	"trimmed": true,
 	"spriteSourceSize": {"x":2,"y":2,"w":28,"h":28},
@@ -10,7 +10,7 @@
 },
 "fireball":
 {
-	"frame": {"x":52,"y":56,"w":8,"h":8},
+	"frame": {"x":34,"y":114,"w":8,"h":8},
 	"rotated": false,
 	"trimmed": true,
 	"spriteSourceSize": {"x":12,"y":12,"w":8,"h":8},
@@ -18,7 +18,7 @@
 },
 "gun-fireball":
 {
-	"frame": {"x":36,"y":66,"w":14,"h":8},
+	"frame": {"x":18,"y":114,"w":14,"h":8},
 	"rotated": false,
 	"trimmed": true,
 	"spriteSourceSize": {"x":12,"y":12,"w":14,"h":8},
@@ -26,7 +26,7 @@
 },
 "gun-pellet":
 {
-	"frame": {"x":36,"y":56,"w":14,"h":8},
+	"frame": {"x":2,"y":114,"w":14,"h":8},
 	"rotated": false,
 	"trimmed": true,
 	"spriteSourceSize": {"x":12,"y":12,"w":14,"h":8},
@@ -34,7 +34,7 @@
 },
 "pellet":
 {
-	"frame": {"x":52,"y":72,"w":2,"h":2},
+	"frame": {"x":2,"y":124,"w":2,"h":2},
 	"rotated": false,
 	"trimmed": true,
 	"spriteSourceSize": {"x":15,"y":15,"w":2,"h":2},
@@ -42,15 +42,23 @@
 },
 "roadtile":
 {
-	"frame": {"x":2,"y":36,"w":32,"h":32},
+	"frame": {"x":2,"y":80,"w":32,"h":32},
 	"rotated": false,
 	"trimmed": false,
 	"spriteSourceSize": {"x":0,"y":0,"w":32,"h":32},
 	"sourceSize": {"w":32,"h":32}
 },
+"santa":
+{
+	"frame": {"x":2,"y":2,"w":38,"h":42},
+	"rotated": false,
+	"trimmed": true,
+	"spriteSourceSize": {"x":14,"y":10,"w":38,"h":42},
+	"sourceSize": {"w":64,"h":64}
+},
 "snowman-explosion":
 {
-	"frame": {"x":52,"y":66,"w":4,"h":4},
+	"frame": {"x":36,"y":108,"w":4,"h":4},
 	"rotated": false,
 	"trimmed": true,
 	"spriteSourceSize": {"x":14,"y":14,"w":4,"h":4},
@@ -58,7 +66,7 @@
 },
 "snowman":
 {
-	"frame": {"x":36,"y":2,"w":26,"h":26},
+	"frame": {"x":42,"y":2,"w":26,"h":26},
 	"rotated": false,
 	"trimmed": true,
 	"spriteSourceSize": {"x":3,"y":3,"w":26,"h":26},
@@ -66,7 +74,7 @@
 },
 "snowtile":
 {
-	"frame": {"x":2,"y":2,"w":32,"h":32},
+	"frame": {"x":2,"y":46,"w":32,"h":32},
 	"rotated": false,
 	"trimmed": false,
 	"spriteSourceSize": {"x":0,"y":0,"w":32,"h":32},
@@ -74,7 +82,7 @@
 },
 "towerbase":
 {
-	"frame": {"x":36,"y":30,"w":24,"h":24},
+	"frame": {"x":66,"y":78,"w":24,"h":24},
 	"rotated": false,
 	"trimmed": true,
 	"spriteSourceSize": {"x":4,"y":4,"w":24,"h":24},
@@ -82,7 +90,7 @@
 },
 "towerslot":
 {
-	"frame": {"x":2,"y":70,"w":30,"h":30},
+	"frame": {"x":36,"y":46,"w":30,"h":30},
 	"rotated": false,
 	"trimmed": true,
 	"spriteSourceSize": {"x":1,"y":1,"w":30,"h":30},
@@ -93,8 +101,8 @@
 	"version": "1.0",
 	"image": "assets.png",
 	"format": "RGBA8888",
-	"size": {"w":64,"h":128},
+	"size": {"w":128,"h":128},
 	"scale": "1",
-	"smartupdate": "$TexturePacker:SmartUpdate:5f40d956dc39e9eb1049a3cac8598293:f1826d1d9b02187b339d93ca1bafa6a2:a759b6bbc8381ac9c472b28f589ad0d6$"
+	"smartupdate": "$TexturePacker:SmartUpdate:6974dacb1d4a94377879e7da3cf48d5d:9735166bc7ee5315155ac5730a792651:a759b6bbc8381ac9c472b28f589ad0d6$"
 }
 }

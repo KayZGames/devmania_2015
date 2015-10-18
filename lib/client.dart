@@ -18,11 +18,16 @@ class Game extends GameBase {
     var gm = world.getManager(GroupManager) as GroupManager;
 
     var enemy = addEntity([
-      new Position(400, 320),
+      new Position(-16, 320),
       new Velocity(20, 0),
       new SpriteComponent('snowman'),
       new Enemy('snowman'),
       new FollowsRoad()
+    ]);
+    addEntity([
+      new Position(300, 224),
+      new Velocity(0, 0),
+      new SpriteComponent('santa'),
     ]);
     gm.add(enemy, 'enemy');
 
