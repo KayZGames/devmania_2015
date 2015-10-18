@@ -103,5 +103,6 @@ class Game extends GameBase {
   onInit() {
     world.addManager(new GridPositionManager());
     world.addManager(new GroupManager());
+    world.addManager(new TagManager());
   }
 }

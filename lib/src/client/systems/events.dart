@@ -6,6 +6,7 @@ class MouseInputSystem extends EntityProcessingSystem {
   Mapper<SelectedTower> stm;
   Mapper<Inventory> im;
   GridPositionManager gpManager;
+  TagManager tm;
 
   Point<int> offset = new Point<int>(0, 0);
   bool clicked = false;
@@ -53,12 +54,25 @@ class MouseInputSystem extends EntityProcessingSystem {
           ..removeComponent(SelectedTower)
           ..changedInWorld();
         var towerEntity = gpManager.towerMap[gp.x][gp.y];
+        var previousUpgrade = tm.getEntity('upgrademenu');
+        if (null != previousUpgrade) {
+          previousUpgrade
+            ..removeComponent(UpgradeMenu)
+            ..changedInWorld();
+        }
         towerEntity
           ..addComponent(new UpgradeMenu())
           ..changedInWorld();
+        tm.register(towerEntity, 'upgrademenu');
         // no, don't do this
         world.processEntityChanges();
       } else {
+        var previousUpgrade = tm.getEntity('upgrademenu');
+        if (null != previousUpgrade) {
+          previousUpgrade
+            ..removeComponent(UpgradeMenu)
+            ..changedInWorld();
+        }
         entity
           ..removeComponent(SelectedTower)
           ..changedInWorld();
