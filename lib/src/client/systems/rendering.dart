@@ -236,6 +236,8 @@ class InventoryRenderingSystem extends GridPositionRenderingSystem {
 
 class GameOverRenderingSystem extends VoidEntitySystem {
   static const String gameOver = 'GAME OVER';
+  static const String stolen = 'ALL PRESENTS WERE STOLEN';
+  static const String playAgain = 'Press F5 to play again :)';
   CanvasRenderingContext2D ctx;
   GameOverRenderingSystem(this.ctx);
 
@@ -251,11 +253,92 @@ class GameOverRenderingSystem extends VoidEntitySystem {
     var width = ctx.measureText(gameOver).width;
 
     ctx
-      ..strokeText(gameOver, 480 - width / 2, 272)
-      ..fillText(gameOver, 480 - width / 2, 272)
+      ..strokeText(gameOver, 480 - width / 2, 200)
+      ..fillText(gameOver, 480 - width / 2, 200);
+
+    ctx..font = '48px Verdana';
+
+    var stolenWidth = ctx.measureText(stolen).width;
+    var playAgainWidth = ctx.measureText(playAgain).width;
+    ctx
+      ..strokeText(stolen, 480 - stolenWidth / 2, 300)
+      ..fillText(stolen, 480 - stolenWidth / 2, 300)
+      ..strokeText(playAgain, 480 - playAgainWidth / 2, 350)
+      ..fillText(playAgain, 480 - playAgainWidth / 2, 350)
       ..restore();
   }
 
   @override
   bool checkProcessing() => gameState.gameOver;
+}
+
+class TowerUpgradMenuRenderingSystem extends EntityProcessingSystem {
+  static const String labelRange = '(1) Increase Range: ';
+  static const String labelSpeed = '(2) Increase Bullet Speed: ';
+  static const String labelDamage = '(3) Increase Damage: ';
+  static const String labelCooldown = '(4) Reduce Cooldown: ';
+  static const String labelClose = '(ESC) Close';
+  int width = 128;
+  int height = 160;
+  Mapper<GridPosition> gpm;
+  Mapper<Tower> tm;
+
+  CanvasRenderingContext2D ctx;
+  TowerUpgradMenuRenderingSystem(this.ctx)
+      : super(Aspect.getAspectForAllOf([UpgradeMenu, GridPosition, Tower]));
+
+  @override
+  void processEntity(Entity entity) {
+    var t = tm[entity];
+    var gp = gpm[entity];
+
+    var x = gp.x * 32 + 32;
+    var y = gp.y * 32;
+
+    ctx
+      ..save()
+      ..font = '14px Verdana'
+      ..lineWidth = 1;
+
+    var rangeUpagradeCost = t.rangeUpgradeCost;
+    var bulletVelocityUpgradeCost = t.bulletVelocityUpgradeCost;
+    var bulletDamageUpgradeCost = t.bulletDamageUpgradeCost;
+    var cooldownUpgradeCost = t.cooldownUpgradeCost;
+
+    var rangeWidth = ctx.measureText('$rangeUpagradeCost').width;
+    var speedWidth = ctx.measureText('$bulletVelocityUpgradeCost').width;
+    var damageWidth = ctx.measureText('$bulletDamageUpgradeCost').width;
+    var cooldownWidth = ctx.measureText('$cooldownUpgradeCost').width;
+
+    ctx
+      ..strokeStyle = 'black'
+      ..fillStyle = '#67d2e7'
+      ..strokeRect(x - 10, y - 10, 250, 100)
+      ..fillRect(x - 10, y - 10, 250, 100)
+      ..strokeStyle = 'black'
+      ..fillStyle = '#44447d'
+      ..strokeText(labelRange, x, y)
+      ..fillText(labelRange, x, y)
+      ..strokeText(labelSpeed, x, y + 16)
+      ..fillText(labelSpeed, x, y + 16)
+      ..strokeText(labelDamage, x, y + 32)
+      ..fillText(labelDamage, x, y + 32)
+      ..strokeText(labelCooldown, x, y + 48)
+      ..fillText(labelCooldown, x, y + 48)
+      ..strokeText(labelClose, x, y + 64)
+      ..fillText(labelClose, x, y + 64);
+
+    x += 230;
+
+    ctx
+      ..strokeText('$rangeUpagradeCost', x - rangeWidth, y)
+      ..fillText('$rangeUpagradeCost', x - rangeWidth, y)
+      ..strokeText('$bulletVelocityUpgradeCost', x - speedWidth, y + 16)
+      ..fillText('$bulletVelocityUpgradeCost', x - speedWidth, y + 16)
+      ..strokeText('$bulletDamageUpgradeCost', x - damageWidth, y + 32)
+      ..fillText('$bulletDamageUpgradeCost', x - damageWidth, y + 32)
+      ..strokeText('$cooldownUpgradeCost', x - cooldownWidth, y + 48)
+      ..fillText('$cooldownUpgradeCost', x - cooldownWidth, y + 48)
+      ..restore();
+  }
 }

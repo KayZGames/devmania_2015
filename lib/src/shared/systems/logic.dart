@@ -44,22 +44,29 @@ class EnemyInRangeDetectionSystem extends EntitySystem {
           var distX = p.value.x - tpx;
           var distY = p.value.y - tpy;
           var distanceSquared = distX * distX + distY * distY;
-          if (distanceSquared < t.range * t.range) {
+          var range = t.range * pow(1.1, t.rangeLevel);
+          if (distanceSquared < range * range) {
             var distance = sqrt(distanceSquared);
-            var bulletTime = distance / t.bulletVelocity;
+            var bulletTime =
+                distance / (t.bulletVelocity * pow(1.1, t.bulletVelocityLevel));
             var angle = atan2(
                 distY + v.value.y * bulletTime, distX + v.value.x * bulletTime);
             t.rotation = angle;
             var bullet = world.createAndAddEntity([
               new Position(tpx, tpy),
               new Velocity(
-                  t.bulletVelocity * cos(angle), t.bulletVelocity * sin(angle)),
+                  t.bulletVelocity *
+                      cos(angle) *
+                      pow(1.1, t.bulletVelocityLevel),
+                  t.bulletVelocity *
+                      sin(angle) *
+                      pow(1.1, t.bulletVelocityLevel)),
               new SpriteComponent(t.name),
-              new Bullet(bulletDamage[t.name]),
+              new Bullet(bulletDamage[t.name] * pow(1.1, t.bulletDamageLevel)),
               new ExpirationTimer(t.range / t.bulletVelocity)
             ]);
             gm.add(bullet, 'bullet');
-            c.cooldown = c.maxCooldown;
+            c.cooldown = c.maxCooldown / pow(1.1, t.cooldownLevel);
             return true;
           }
           return false;

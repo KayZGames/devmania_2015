@@ -76,6 +76,7 @@ class Game extends GameBase {
     return {
       GameBase.rendering: [
         new MouseInputSystem(canvas),
+        new KeyboardInputSystem(),
         new CanvasCleaningSystem(canvas, fillStyle: 'black'),
         new TileRenderingSystem(ctx, spriteSheet),
         new SpriteRenderingSystem(ctx, spriteSheet),
@@ -84,6 +85,7 @@ class Game extends GameBase {
         new CursorRenderingSystem(ctx, spriteSheet),
         new InventoryRenderingSystem(ctx, spriteSheet),
         new EnemyHealtRenderingSystem(ctx),
+        new TowerUpgradMenuRenderingSystem(ctx),
         new GameStateRenderingSystem(ctx),
         new GameOverRenderingSystem(ctx),
         new FpsRenderingSystem(ctx, fillStyle: 'black'),

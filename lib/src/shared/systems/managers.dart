@@ -9,14 +9,14 @@ class GridPositionManager extends Manager {
   Mapper<Road> rm;
   GroupManager gm;
 
-  List<List<bool>> towerMap = new List.generate(30, (_) => new List.generate(20, (_) => false));
+  List<List<Entity>> towerMap = new List.generate(30, (_) => new List.generate(20, (_) => null));
   List<List<bool>> towerBlockerMap = new List.generate(30, (_) => new List.generate(20, (_) => false));
   List<List<bool>> roadrMap = new List.generate(30, (_) => new List.generate(20, (_) => false));
 
   void added(Entity e) {
     if (tm.has(e) && !im.has(e)) {
       var gp = gpm[e];
-      towerMap[gp.x][gp.y] = true;
+      towerMap[gp.x][gp.y] = e;
       gm.add(e, 'tower');
     }
     if (btm.has(e)) {
@@ -29,7 +29,7 @@ class GridPositionManager extends Manager {
     }
   }
 
-  bool canPlaceTower(int x, int y) => !towerMap[x][y] && !towerBlockerMap[x][y];
+  bool canPlaceTower(int x, int y) => towerMap[x][y] == null && !towerBlockerMap[x][y];
 
   Iterable<Entity> getTowers() => gm.getEntities('tower');
 

@@ -33,13 +33,25 @@ class Tile extends Component {}
 class Tower extends Component {
   String name;
   int range;
+  int rangeLevel;
+  int bulletVelocityLevel;
+  int bulletDamageLevel;
+  int cooldownLevel;
   double bulletVelocity;
   double rotation;
   Tower(this.name) {
     this.range = towerRanges[name];
     this.bulletVelocity = bulletVelocities[name];
     this.rotation = 0.0;
+    this.rangeLevel = 0;
+    this.bulletVelocityLevel = 0;
+    this.bulletDamageLevel = 0;
+    this.cooldownLevel = 0;
   }
+  int get rangeUpgradeCost => pow(2, rangeLevel) * towerCosts[name] ~/ 5;
+  int get bulletVelocityUpgradeCost => pow(2, bulletVelocityLevel) * towerCosts[name] ~/ 5;
+  int get bulletDamageUpgradeCost => pow(2, bulletDamageLevel) * towerCosts[name] ~/ 5;
+  int get cooldownUpgradeCost => pow(2, cooldownLevel) * towerCosts[name] ~/ 5;
 }
 
 class Cooldown extends Component {
@@ -83,3 +95,5 @@ class Inventory extends Component {
   int cost;
   Inventory(this.cost);
 }
+
+class UpgradeMenu extends Component {}
