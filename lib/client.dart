@@ -52,12 +52,12 @@ class Game extends GameBase {
     var slotX = firstTowerSlotX;
     towers.forEach((name) {
       addEntity([
-        new GridPosition(slotX, 19),
+        new GridPosition(slotX, 18),
         new SpriteComponent('towerslot'),
         new Tile()
       ]);
       addEntity([
-        new GridPosition(slotX, 19),
+        new GridPosition(slotX, 18),
         new SpriteComponent('gun-$name'),
         new Tower(name),
         new Inventory(towerCosts[name])
@@ -76,6 +76,7 @@ class Game extends GameBase {
         new TowerRenderingSystem(ctx, spriteSheet),
         new SelectedTowerRenderingSystem(ctx, spriteSheet),
         new CursorRenderingSystem(ctx, spriteSheet),
+        new InventoryRenderingSystem(ctx, spriteSheet),
         new EnemyHealtRenderingSystem(ctx),
         new GameStateRenderingSystem(ctx),
         new FpsRenderingSystem(ctx, fillStyle: 'black'),

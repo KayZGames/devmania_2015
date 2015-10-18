@@ -32,7 +32,7 @@ class MouseInputSystem extends EntityProcessingSystem {
 
     if (clicked) {
       if (clicked) {
-        if (gp.y == 19 &&
+        if (gp.y == 18 &&
             gp.x >= firstTowerSlotX &&
             gp.x < firstTowerSlotX + towers.length) {
           entity

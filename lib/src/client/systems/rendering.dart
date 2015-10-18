@@ -122,6 +122,9 @@ class SelectedTowerRenderingSystem extends GridPositionRenderingSystem {
       ..restore();
     drawOnGrid(gp, 'towerbase', 0.0, 0.3);
     drawOnGrid(gp, 'gun-${st.name}', 0.0, 0.3);
+    if (towerCosts[st.name] > gameState.snowflakes) {
+      drawOnGrid(gp, 'unaffordable');
+    }
   }
 }
 
@@ -180,5 +183,33 @@ class GameStateRenderingSystem extends VoidEntitySystem {
       ..strokeText('$kills', 920 - snowmenWidth, 20)
       ..fillText('$kills', 920 - snowmenWidth, 20)
       ..restore();
+  }
+}
+
+class InventoryRenderingSystem extends GridPositionRenderingSystem {
+  Mapper<Inventory> im;
+  InventoryRenderingSystem(CanvasRenderingContext2D ctx, SpriteSheet sheet)
+      : super(ctx, sheet, Aspect.getAspectForAllOf([GridPosition, Inventory]));
+
+  @override
+  void processEntity(Entity entity) {
+    var gp = gpm[entity];
+    var i = im[entity];
+    ctx
+      ..save()
+      ..font = '14px Verdana'
+      ..lineWidth = 1
+      ..strokeStyle = 'black'
+      ..fillStyle = '#6ba3ff';
+
+    var width = ctx.measureText('${i.cost}').width;
+
+    ctx
+      ..strokeText('${i.cost}', gp.x * 32 - width/2, gp.y * 32 + 16)
+      ..fillText('${i.cost}', gp.x * 32 - width/2, gp.y * 32 + 16)
+      ..restore();
+    if (i.cost > gameState.snowflakes) {
+      drawOnGrid(gp, 'unaffordable');
+    }
   }
 }
