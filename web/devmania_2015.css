@@ -18,3 +18,10 @@ canvas {
   height: 640px;
   cursor: none;
 }
+
+fieldset {
+  position: relative;
+  display: inline-block;
+  width: 960px;
+  margin: auto;
+}
