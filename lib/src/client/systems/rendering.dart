@@ -158,7 +158,6 @@ class EnemyHealtRenderingSystem extends EntityProcessingSystem {
 class GameStateRenderingSystem extends VoidEntitySystem {
   static const String labelSnowflakes = 'Snowflakes: ';
   static const String labelSnowmen = 'Dead Snowmen: ';
-  static const String labelRemaining = 'Remaining Presents: ';
   static const String labelStolen = 'Stolen Presents: ';
   CanvasRenderingContext2D ctx;
   GameStateRenderingSystem(this.ctx);
@@ -167,7 +166,6 @@ class GameStateRenderingSystem extends VoidEntitySystem {
   void processSystem() {
     var snowflakes = gameState.snowflakes;
     var kills = gameState.kills;
-    var presents = gameState.presents;
     var stolen = 10 - gameState.presents;
 
     ctx
@@ -179,11 +177,9 @@ class GameStateRenderingSystem extends VoidEntitySystem {
 
     var valueWidth = ctx.measureText('$snowflakes').width;
     var snowmenWidth = ctx.measureText('$kills').width;
-    var presentsWidth = ctx.measureText('$presents').width;
-    var stolenWidth = ctx.measureText('$stolen').width;
+    var presentsWidth = ctx.measureText('$stolen/10').width;
     var labelSnowmenWidth = ctx.measureText(labelSnowmen).width;
     var labelSnowflakesWidth = ctx.measureText(labelSnowflakes).width;
-    var labelRemainingWidth = ctx.measureText(labelRemaining).width;
     var labelStolenWidth = ctx.measureText(labelStolen).width;
     ctx
       ..strokeText(labelSnowflakes, 850 - labelSnowflakesWidth, 0)
@@ -192,16 +188,12 @@ class GameStateRenderingSystem extends VoidEntitySystem {
       ..fillText(labelSnowmen, 850 - labelSnowmenWidth, 20)
       ..strokeText(labelStolen, 850 - labelStolenWidth, 40)
       ..fillText(labelStolen, 850 - labelStolenWidth, 40)
-      ..strokeText(labelRemaining, 850 - labelRemainingWidth, 60)
-      ..fillText(labelRemaining, 850 - labelRemainingWidth, 60)
       ..strokeText('$snowflakes', 920 - valueWidth, 0)
       ..fillText('$snowflakes', 920 - valueWidth, 0)
       ..strokeText('$kills', 920 - snowmenWidth, 20)
       ..fillText('$kills', 920 - snowmenWidth, 20)
-      ..strokeText('$stolen', 920 - stolenWidth, 40)
-      ..fillText('$stolen', 920 - stolenWidth, 40)
-      ..strokeText('$presents', 920 - presentsWidth, 60)
-      ..fillText('$presents', 920 - presentsWidth, 60)
+      ..strokeText('$stolen/10', 920 - presentsWidth, 40)
+      ..fillText('$stolen/10', 920 - presentsWidth, 40)
       ..restore();
   }
 }

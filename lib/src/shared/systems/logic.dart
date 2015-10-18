@@ -187,7 +187,7 @@ class FollowsRoadSystem extends EntityProcessingSystem {
           v.value.x = -v.value.y.abs();
           v.value.y = 0.0;
         } else {
-          v.value.y = -v.value.y;
+          v.value.y = -v.value.y * 0.75;
           var s = sm[entity];
           s.name = 'snowman-with-present';
           entity
@@ -202,7 +202,7 @@ class FollowsRoadSystem extends EntityProcessingSystem {
           v.value.y = -v.value.x.abs();
           v.value.x = 0.0;
         } else {
-          v.value.x = -v.value.x;
+          v.value.x = -v.value.x * 0.75;
           var s = sm[entity];
           s.name = 'snowman-with-present';
           entity

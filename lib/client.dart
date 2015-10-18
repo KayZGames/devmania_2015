@@ -88,7 +88,7 @@ class Game extends GameBase {
         new TowerUpgradMenuRenderingSystem(ctx),
         new GameStateRenderingSystem(ctx),
         new GameOverRenderingSystem(ctx),
-        new FpsRenderingSystem(ctx, fillStyle: 'black'),
+//        new FpsRenderingSystem(ctx, fillStyle: 'black'),
         new EnemyInRangeDetectionSystem(),
         new CooldownSystem(),
         new EnemySpawner(),
