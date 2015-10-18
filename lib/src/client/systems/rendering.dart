@@ -17,6 +17,10 @@ class SpriteRenderingSystem extends EntityProcessingSystem {
     var v = vm[entity];
     var s = sm[entity].name;
     var sprite = sheet[s];
+    if (null == sprite) {
+      print(entity);
+      print(s);
+    }
 
     ctx
       ..save()
@@ -154,6 +158,8 @@ class EnemyHealtRenderingSystem extends EntityProcessingSystem {
 class GameStateRenderingSystem extends VoidEntitySystem {
   static const String labelSnowflakes = 'Snowflakes: ';
   static const String labelSnowmen = 'Dead Snowmen: ';
+  static const String labelRemaining = 'Remaining Presents: ';
+  static const String labelStolen = 'Stolen Presents: ';
   CanvasRenderingContext2D ctx;
   GameStateRenderingSystem(this.ctx);
 
@@ -161,6 +167,8 @@ class GameStateRenderingSystem extends VoidEntitySystem {
   void processSystem() {
     var snowflakes = gameState.snowflakes;
     var kills = gameState.kills;
+    var presents = gameState.presents;
+    var stolen = 10 - gameState.presents;
 
     ctx
       ..save()
@@ -170,18 +178,30 @@ class GameStateRenderingSystem extends VoidEntitySystem {
       ..fillStyle = '#6ba3ff';
 
     var valueWidth = ctx.measureText('$snowflakes').width;
-    var snowmenWidth = ctx.measureText('$snowflakes').width;
+    var snowmenWidth = ctx.measureText('$kills').width;
+    var presentsWidth = ctx.measureText('$presents').width;
+    var stolenWidth = ctx.measureText('$stolen').width;
     var labelSnowmenWidth = ctx.measureText(labelSnowmen).width;
     var labelSnowflakesWidth = ctx.measureText(labelSnowflakes).width;
+    var labelRemainingWidth = ctx.measureText(labelRemaining).width;
+    var labelStolenWidth = ctx.measureText(labelStolen).width;
     ctx
       ..strokeText(labelSnowflakes, 850 - labelSnowflakesWidth, 0)
       ..fillText(labelSnowflakes, 850 - labelSnowflakesWidth, 0)
       ..strokeText(labelSnowmen, 850 - labelSnowmenWidth, 20)
       ..fillText(labelSnowmen, 850 - labelSnowmenWidth, 20)
+      ..strokeText(labelStolen, 850 - labelStolenWidth, 40)
+      ..fillText(labelStolen, 850 - labelStolenWidth, 40)
+      ..strokeText(labelRemaining, 850 - labelRemainingWidth, 60)
+      ..fillText(labelRemaining, 850 - labelRemainingWidth, 60)
       ..strokeText('$snowflakes', 920 - valueWidth, 0)
       ..fillText('$snowflakes', 920 - valueWidth, 0)
       ..strokeText('$kills', 920 - snowmenWidth, 20)
       ..fillText('$kills', 920 - snowmenWidth, 20)
+      ..strokeText('$stolen', 920 - stolenWidth, 40)
+      ..fillText('$stolen', 920 - stolenWidth, 40)
+      ..strokeText('$presents', 920 - presentsWidth, 60)
+      ..fillText('$presents', 920 - presentsWidth, 60)
       ..restore();
   }
 }
@@ -205,11 +225,37 @@ class InventoryRenderingSystem extends GridPositionRenderingSystem {
     var width = ctx.measureText('${i.cost}').width;
 
     ctx
-      ..strokeText('${i.cost}', gp.x * 32 - width/2, gp.y * 32 + 16)
-      ..fillText('${i.cost}', gp.x * 32 - width/2, gp.y * 32 + 16)
+      ..strokeText('${i.cost}', gp.x * 32 - width / 2, gp.y * 32 + 16)
+      ..fillText('${i.cost}', gp.x * 32 - width / 2, gp.y * 32 + 16)
       ..restore();
     if (i.cost > gameState.snowflakes) {
       drawOnGrid(gp, 'unaffordable');
     }
   }
+}
+
+class GameOverRenderingSystem extends VoidEntitySystem {
+  static const String gameOver = 'GAME OVER';
+  CanvasRenderingContext2D ctx;
+  GameOverRenderingSystem(this.ctx);
+
+  @override
+  void processSystem() {
+    ctx
+      ..save()
+      ..font = '96px Verdana'
+      ..lineWidth = 1
+      ..strokeStyle = 'black'
+      ..fillStyle = '#44447d';
+
+    var width = ctx.measureText(gameOver).width;
+
+    ctx
+      ..strokeText(gameOver, 480 - width / 2, 272)
+      ..fillText(gameOver, 480 - width / 2, 272)
+      ..restore();
+  }
+
+  @override
+  bool checkProcessing() => gameState.gameOver;
 }

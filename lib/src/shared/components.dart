@@ -21,7 +21,10 @@ class SpriteComponent extends Component {
 }
 
 class FollowsRoad extends Component {}
+
 class Road extends Component {}
+
+class Present extends Component {}
 
 class Cursor extends Component {}
 

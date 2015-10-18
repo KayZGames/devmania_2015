@@ -41,12 +41,27 @@ class MouseInputSystem extends EntityProcessingSystem {
         } else if (stm.has(entity) && gpManager.canPlaceTower(gp.x, gp.y)) {
           var name = stm[entity].name;
           if (towerCosts[name] <= gameState.snowflakes) {
-            world.createAndAddEntity([new GridPosition(gp.x, gp.y), new SpriteComponent('gun-$name'), new Tower(name), new Cooldown(towerCooldowns[name])]);
+            world.createAndAddEntity([
+              new GridPosition(gp.x, gp.y),
+              new SpriteComponent('gun-$name'),
+              new Tower(name),
+              new Cooldown(towerCooldowns[name])
+            ]);
             gameState.snowflakes -= towerCosts[name];
+          } else {
+            entity
+              ..removeComponent(SelectedTower)
+              ..changedInWorld();
+            // no, don't do this
+            world.processEntityChanges();
           }
         }
       }
       clicked = false;
     }
   }
+
+  @override
+  bool checkProcessing() => !gameState.gameOver;
+
 }

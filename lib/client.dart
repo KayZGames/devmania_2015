@@ -17,17 +17,17 @@ class Game extends GameBase {
   void createEntities() {
     var gm = world.getManager(GroupManager) as GroupManager;
 
-    var enemy = addEntity([
-      new Position(-16, 320),
-      new Velocity(20, 0),
-      new SpriteComponent('snowman'),
-      new Enemy('snowman', 1.0),
-      new FollowsRoad()
-    ]);
     addEntity([
       new Position(300, 224),
       new Velocity(0, 0),
       new SpriteComponent('santa'),
+    ]);
+    var enemy = addEntity([
+      new Position(-32, 320),
+      new Velocity(20, 0),
+      new SpriteComponent('snowman'),
+      new Enemy('snowman', 1.0),
+      new FollowsRoad()
     ]);
     gm.add(enemy, 'enemy');
 
@@ -48,7 +48,13 @@ class Game extends GameBase {
         ]);
       }
     }
-    road.forEach((value) => addEntity([new GridPosition(value[0], value[1]), new SpriteComponent('roadtile'), new Tile(), new Road(), new BlocksTower()]));
+    road.forEach((value) => addEntity([
+          new GridPosition(value[0], value[1]),
+          new SpriteComponent('roadtile'),
+          new Tile(),
+          new Road(),
+          new BlocksTower()
+        ]));
     var slotX = firstTowerSlotX;
     towers.forEach((name) {
       addEntity([
@@ -79,15 +85,16 @@ class Game extends GameBase {
         new InventoryRenderingSystem(ctx, spriteSheet),
         new EnemyHealtRenderingSystem(ctx),
         new GameStateRenderingSystem(ctx),
+        new GameOverRenderingSystem(ctx),
         new FpsRenderingSystem(ctx, fillStyle: 'black'),
         new EnemyInRangeDetectionSystem(),
         new CooldownSystem(),
         new EnemySpawner(),
         new BulletCollisionSystem(),
         new ExpirationSystem(),
-        new FollowsRoadSystem(),
+        new StolenPresentSystem(),
       ],
-      GameBase.physics: [new MovementSystem(),]
+      GameBase.physics: [new MovementSystem(), new FollowsRoadSystem(),]
     };
   }
 
@@ -95,5 +102,4 @@ class Game extends GameBase {
     world.addManager(new GridPositionManager());
     world.addManager(new GroupManager());
   }
-
 }

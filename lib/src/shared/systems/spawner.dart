@@ -19,7 +19,7 @@ class EnemySpawner extends VoidEntitySystem {
   void processSystem() {
     var killMod = 1 + (gameState.kills ~/ 10) / 5;
     _interval = 5.0 / killMod;
-    var enemy = world.createAndAddEntity([new Position(-32, 320), new Velocity(20 * killMod, 0), new SpriteComponent('snowman'), new Enemy('snowman', killMod), new FollowsRoad()]);
+    var enemy = world.createAndAddEntity([new Position(-32, 320), new Velocity(200 * killMod, 0), new SpriteComponent('snowman'), new Enemy('snowman', killMod), new FollowsRoad()]);
     gm.add(enemy, 'enemy');
   }
 }

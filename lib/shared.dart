@@ -88,4 +88,6 @@ final GameState gameState = new GameState();
 class GameState {
   int snowflakes = 50;
   int kills = 0;
+  int presents = 10;
+  bool get gameOver => presents <= 0;
 }

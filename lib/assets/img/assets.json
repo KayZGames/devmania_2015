@@ -80,9 +80,17 @@
 	"spriteSourceSize": {"x":14,"y":14,"w":4,"h":4},
 	"sourceSize": {"w":32,"h":32}
 },
+"snowman-with-present":
+{
+	"frame": {"x":66,"y":78,"w":28,"h":26},
+	"rotated": false,
+	"trimmed": true,
+	"spriteSourceSize": {"x":3,"y":3,"w":28,"h":26},
+	"sourceSize": {"w":32,"h":32}
+},
 "snowman":
 {
-	"frame": {"x":66,"y":78,"w":26,"h":26},
+	"frame": {"x":96,"y":2,"w":26,"h":26},
 	"rotated": false,
 	"trimmed": true,
 	"spriteSourceSize": {"x":3,"y":3,"w":26,"h":26},
@@ -98,7 +106,7 @@
 },
 "towerbase":
 {
-	"frame": {"x":94,"y":2,"w":24,"h":24},
+	"frame": {"x":96,"y":30,"w":24,"h":24},
 	"rotated": false,
 	"trimmed": true,
 	"spriteSourceSize": {"x":4,"y":4,"w":24,"h":24},
@@ -127,6 +135,6 @@
 	"format": "RGBA8888",
 	"size": {"w":128,"h":128},
 	"scale": "1",
-	"smartupdate": "$TexturePacker:SmartUpdate:851aecef7e12f3aed1dfe9e06cd0251b:5bdfbe4350238c88c9fbcf7278778c08:a759b6bbc8381ac9c472b28f589ad0d6$"
+	"smartupdate": "$TexturePacker:SmartUpdate:c677b2b336a8b0070d613db9356e3ed2:174d29a0c9a810b62d5ead3cf79ac75b:a759b6bbc8381ac9c472b28f589ad0d6$"
 }
 }

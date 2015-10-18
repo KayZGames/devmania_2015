@@ -12,6 +12,9 @@ class MovementSystem extends EntityProcessingSystem {
 
     p.value = p.value + v.value * world.delta;
   }
+
+  @override
+  bool checkProcessing() => !gameState.gameOver;
 }
 
 class EnemyInRangeDetectionSystem extends EntitySystem {
@@ -66,7 +69,7 @@ class EnemyInRangeDetectionSystem extends EntitySystem {
   }
 
   @override
-  bool checkProcessing() => true;
+  bool checkProcessing() => !gameState.gameOver;
 }
 
 class BulletCollisionSystem extends EntityProcessingSystem {
@@ -74,8 +77,7 @@ class BulletCollisionSystem extends EntityProcessingSystem {
   Mapper<Enemy> em;
   Mapper<Bullet> bm;
   GroupManager gm;
-  BulletCollisionSystem()
-      : super(Aspect.getAspectForAllOf([Bullet]));
+  BulletCollisionSystem() : super(Aspect.getAspectForAllOf([Bullet]));
 
   @override
   void processEntity(Entity entity) {
@@ -112,6 +114,9 @@ class BulletCollisionSystem extends EntityProcessingSystem {
       entity.deleteFromWorld();
     }
   }
+
+  @override
+  bool checkProcessing() => !gameState.gameOver;
 }
 
 class CooldownSystem extends EntityProcessingSystem {
@@ -122,6 +127,9 @@ class CooldownSystem extends EntityProcessingSystem {
   void processEntity(Entity entity) {
     tm[entity].cooldown -= world.delta;
   }
+
+  @override
+  bool checkProcessing() => !gameState.gameOver;
 }
 
 class ExpirationSystem extends EntityProcessingSystem {
@@ -136,13 +144,19 @@ class ExpirationSystem extends EntityProcessingSystem {
       entity.deleteFromWorld();
     }
   }
+
+  @override
+  bool checkProcessing() => !gameState.gameOver;
 }
 
 class FollowsRoadSystem extends EntityProcessingSystem {
   Mapper<Position> pm;
   Mapper<Velocity> vm;
+  Mapper<SpriteComponent> sm;
   GridPositionManager gpm;
-  FollowsRoadSystem() : super(Aspect.getAspectForAllOf([Position, Velocity, FollowsRoad]));
+  FollowsRoadSystem()
+      : super(Aspect.getAspectForAllOf(
+            [Position, Velocity, FollowsRoad, SpriteComponent]));
 
   @override
   void processEntity(Entity entity) {
@@ -151,7 +165,11 @@ class FollowsRoadSystem extends EntityProcessingSystem {
 
     var gridX = p.value.x ~/ 32;
     var gridY = p.value.y ~/ 32;
-    if (!gpm.roadrMap[gridX + v.value.x.sign.toInt()][gridY + v.value.y.sign.toInt()] && p.value.x % 32 < 1 && p.value.y % 32 < 1) {
+    if (gridX > 5 &&
+        !gpm.roadrMap[gridX + v.value.x.sign.toInt()]
+            [gridY + v.value.y.sign.toInt()] &&
+        p.value.x % 32 < 4 &&
+        p.value.y % 32 < 4) {
       p.value.x = gridX * 32.0;
       p.value.y = gridY * 32.0;
       if (v.value.x == 0.0) {
@@ -163,6 +181,11 @@ class FollowsRoadSystem extends EntityProcessingSystem {
           v.value.y = 0.0;
         } else {
           v.value.y = -v.value.y;
+          var s = sm[entity];
+          s.name = 'snowman-with-present';
+          entity
+            ..addComponent(new Present())
+            ..changedInWorld();
         }
       } else if (v.value.y == 0.0) {
         if (gpm.roadrMap[gridX][gridY + 1]) {
@@ -173,10 +196,37 @@ class FollowsRoadSystem extends EntityProcessingSystem {
           v.value.x = 0.0;
         } else {
           v.value.x = -v.value.x;
+          var s = sm[entity];
+          s.name = 'snowman-with-present';
+          entity
+            ..addComponent(new Present())
+            ..changedInWorld();
         }
-
       }
     }
-
   }
+
+  @override
+  bool checkProcessing() => !gameState.gameOver;
+}
+
+class StolenPresentSystem extends EntityProcessingSystem {
+  Mapper<Position> pm;
+  Mapper<Velocity> vm;
+  StolenPresentSystem()
+      : super(Aspect.getAspectForAllOf([Position, Velocity, Enemy, Present]));
+
+  @override
+  void processEntity(Entity entity) {
+    var p = pm[entity];
+    var v = vm[entity];
+
+    if (p.value.x < -32 && v.value.x.sign == -1) {
+      gameState.presents--;
+      entity.deleteFromWorld();
+    }
+  }
+
+  @override
+  bool checkProcessing() => !gameState.gameOver;
 }
