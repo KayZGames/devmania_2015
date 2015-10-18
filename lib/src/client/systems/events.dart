@@ -48,6 +48,18 @@ class MouseInputSystem extends EntityProcessingSystem {
             new Cooldown(towerCooldowns[name])
           ]);
           gameState.snowflakes -= towerCosts[name];
+        } else {
+          var previousUpgrade = tm.getEntity('upgrademenu');
+          if (null != previousUpgrade) {
+            previousUpgrade
+              ..removeComponent(UpgradeMenu)
+              ..changedInWorld();
+          }
+          entity
+            ..removeComponent(SelectedTower)
+            ..changedInWorld();
+          // no, don't do this
+          world.processEntityChanges();
         }
       } else if (gpManager.towerMap[gp.x][gp.y] != null) {
         entity

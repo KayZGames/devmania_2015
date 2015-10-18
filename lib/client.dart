@@ -1,7 +1,7 @@
 library client;
 
-import 'dart:html' hide Player, Timeline;
-export 'dart:html' hide Player, Timeline;
+import 'dart:html';
+export 'dart:html';
 import 'package:devmania_2015/shared.dart';
 import 'package:gamedev_helpers/gamedev_helpers.dart';
 export 'package:gamedev_helpers/gamedev_helpers.dart';
