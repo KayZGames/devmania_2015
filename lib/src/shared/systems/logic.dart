@@ -32,7 +32,7 @@ class EnemyInRangeDetectionSystem extends EntitySystem {
       var c = cm[towerEntity];
       if (c.cooldown <= 0.0) {
         var t = tm[towerEntity];
-        entities.forEach((entity) {
+        entities.firstWhere((entity) {
           var tgp = gpm[towerEntity];
           var p = pm[entity];
           var v = vm[entity];
@@ -57,8 +57,10 @@ class EnemyInRangeDetectionSystem extends EntitySystem {
             ]);
             gm.add(bullet, 'bullet');
             c.cooldown = c.maxCooldown;
+            return true;
           }
-        });
+          return false;
+        }, orElse: () => null);
       }
     });
   }
