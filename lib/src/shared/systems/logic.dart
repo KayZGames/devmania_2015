@@ -92,6 +92,7 @@ class BulletCollisionSystem extends EntityProcessingSystem {
         enemy.health -= bm[entity].damage;
         if (enemy.health <= 0.0) {
           gameState.snowflakes += enemy.worth;
+          gameState.kills++;
           enemyEntity.deleteFromWorld();
           var maxParticle = 2 + random.nextInt(8);
           for (int i = 0; i < maxParticle; i++) {

@@ -1,12 +1,25 @@
 part of shared;
 
-class EnemySpawner extends IntervalEntitySystem {
+class EnemySpawner extends VoidEntitySystem {
+  num _acc = 0;
+  num _interval = 5.0;
+
   GroupManager gm;
-  EnemySpawner() : super(5.0, Aspect.getEmpty());
+
+  bool checkProcessing() {
+    _acc += world.delta;
+    if (_acc >= _interval) {
+      _acc -= _interval;
+      return true;
+    }
+    return false;
+  }
 
   @override
-  void processEntities(Iterable<Entity> entities) {
-    var enemy = world.createAndAddEntity([new Position(-32, 320), new Velocity(20, 0), new SpriteComponent('snowman'), new Enemy('snowman'), new FollowsRoad()]);
+  void processSystem() {
+    var killMod = 1 + (gameState.kills ~/ 10) / 5;
+    _interval = 5.0 / killMod;
+    var enemy = world.createAndAddEntity([new Position(-32, 320), new Velocity(20 * killMod, 0), new SpriteComponent('snowman'), new Enemy('snowman', killMod), new FollowsRoad()]);
     gm.add(enemy, 'enemy');
   }
 }

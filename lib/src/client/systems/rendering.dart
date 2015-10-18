@@ -149,13 +149,15 @@ class EnemyHealtRenderingSystem extends EntityProcessingSystem {
 }
 
 class GameStateRenderingSystem extends VoidEntitySystem {
-  static const String label = 'Snowflakes: ';
+  static const String labelSnowflakes = 'Snowflakes: ';
+  static const String labelSnowmen = 'Dead Snowmen: ';
   CanvasRenderingContext2D ctx;
   GameStateRenderingSystem(this.ctx);
 
   @override
   void processSystem() {
     var snowflakes = gameState.snowflakes;
+    var kills = gameState.kills;
 
     ctx
       ..save()
@@ -165,11 +167,18 @@ class GameStateRenderingSystem extends VoidEntitySystem {
       ..fillStyle = '#6ba3ff';
 
     var valueWidth = ctx.measureText('$snowflakes').width;
+    var snowmenWidth = ctx.measureText('$snowflakes').width;
+    var labelSnowmenWidth = ctx.measureText(labelSnowmen).width;
+    var labelSnowflakesWidth = ctx.measureText(labelSnowflakes).width;
     ctx
-      ..strokeText(label, 750, 0)
-      ..fillText(label, 750, 0)
+      ..strokeText(labelSnowflakes, 850 - labelSnowflakesWidth, 0)
+      ..fillText(labelSnowflakes, 850 - labelSnowflakesWidth, 0)
+      ..strokeText(labelSnowmen, 850 - labelSnowmenWidth, 20)
+      ..fillText(labelSnowmen, 850 - labelSnowmenWidth, 20)
       ..strokeText('$snowflakes', 920 - valueWidth, 0)
       ..fillText('$snowflakes', 920 - valueWidth, 0)
+      ..strokeText('$kills', 920 - snowmenWidth, 20)
+      ..fillText('$kills', 920 - snowmenWidth, 20)
       ..restore();
   }
 }

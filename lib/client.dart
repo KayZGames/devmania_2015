@@ -21,7 +21,7 @@ class Game extends GameBase {
       new Position(-16, 320),
       new Velocity(20, 0),
       new SpriteComponent('snowman'),
-      new Enemy('snowman'),
+      new Enemy('snowman', 1.0),
       new FollowsRoad()
     ]);
     addEntity([
