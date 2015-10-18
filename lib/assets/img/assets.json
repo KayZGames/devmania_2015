@@ -2,7 +2,7 @@
 
 "cursor":
 {
-	"frame": {"x":34,"y":78,"w":28,"h":28},
+	"frame": {"x":34,"y":76,"w":28,"h":28},
 	"rotated": false,
 	"trimmed": true,
 	"spriteSourceSize": {"x":2,"y":2,"w":28,"h":28},
@@ -10,7 +10,7 @@
 },
 "fireball":
 {
-	"frame": {"x":54,"y":28,"w":8,"h":8},
+	"frame": {"x":52,"y":56,"w":8,"h":8},
 	"rotated": false,
 	"trimmed": true,
 	"spriteSourceSize": {"x":12,"y":12,"w":8,"h":8},
@@ -18,7 +18,7 @@
 },
 "gun-fireball":
 {
-	"frame": {"x":36,"y":68,"w":14,"h":8},
+	"frame": {"x":36,"y":66,"w":14,"h":8},
 	"rotated": false,
 	"trimmed": true,
 	"spriteSourceSize": {"x":12,"y":12,"w":14,"h":8},
@@ -26,7 +26,7 @@
 },
 "gun-pellet":
 {
-	"frame": {"x":36,"y":58,"w":14,"h":8},
+	"frame": {"x":36,"y":56,"w":14,"h":8},
 	"rotated": false,
 	"trimmed": true,
 	"spriteSourceSize": {"x":12,"y":12,"w":14,"h":8},
@@ -34,7 +34,7 @@
 },
 "pellet":
 {
-	"frame": {"x":60,"y":38,"w":2,"h":2},
+	"frame": {"x":52,"y":72,"w":2,"h":2},
 	"rotated": false,
 	"trimmed": true,
 	"spriteSourceSize": {"x":15,"y":15,"w":2,"h":2},
@@ -50,7 +50,7 @@
 },
 "snowman-explosion":
 {
-	"frame": {"x":54,"y":38,"w":4,"h":4},
+	"frame": {"x":52,"y":66,"w":4,"h":4},
 	"rotated": false,
 	"trimmed": true,
 	"spriteSourceSize": {"x":14,"y":14,"w":4,"h":4},
@@ -58,10 +58,10 @@
 },
 "snowman":
 {
-	"frame": {"x":36,"y":28,"w":16,"h":28},
+	"frame": {"x":36,"y":2,"w":26,"h":26},
 	"rotated": false,
 	"trimmed": true,
-	"spriteSourceSize": {"x":7,"y":3,"w":16,"h":28},
+	"spriteSourceSize": {"x":3,"y":3,"w":26,"h":26},
 	"sourceSize": {"w":32,"h":32}
 },
 "snowtile":
@@ -74,7 +74,7 @@
 },
 "towerbase":
 {
-	"frame": {"x":36,"y":2,"w":24,"h":24},
+	"frame": {"x":36,"y":30,"w":24,"h":24},
 	"rotated": false,
 	"trimmed": true,
 	"spriteSourceSize": {"x":4,"y":4,"w":24,"h":24},
@@ -95,6 +95,6 @@
 	"format": "RGBA8888",
 	"size": {"w":64,"h":128},
 	"scale": "1",
-	"smartupdate": "$TexturePacker:SmartUpdate:2258ec4f1668b830a035b56aec0cc7bd:eefb1b70ce180ffe389779be34afcaa3:a759b6bbc8381ac9c472b28f589ad0d6$"
+	"smartupdate": "$TexturePacker:SmartUpdate:5f40d956dc39e9eb1049a3cac8598293:f1826d1d9b02187b339d93ca1bafa6a2:a759b6bbc8381ac9c472b28f589ad0d6$"
 }
 }
