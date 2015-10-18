@@ -295,6 +295,21 @@ class TowerUpgradMenuRenderingSystem extends EntityProcessingSystem {
     var x = gp.x * 32 + 32;
     var y = gp.y * 32;
 
+
+    ctx
+      ..save()
+      ..strokeStyle = 'red'
+      ..fillStyle = 'red'
+      ..lineWidth = 1
+      ..beginPath()
+      ..arc(gp.x * 32, gp.y * 32, t.range * pow(1.1, t.rangeLevel), 0, 2 * PI)
+      ..closePath()
+      ..globalAlpha = 0.4
+      ..stroke()
+      ..globalAlpha = 0.05
+      ..fill()
+      ..restore();
+
     ctx
       ..save()
       ..font = '14px Verdana'
