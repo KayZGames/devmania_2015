@@ -77,7 +77,7 @@ class Enemy extends Component {
   Enemy(this.name, double killMod) {
     this.health = enemyHealth[name] * killMod * killMod;
     this.maxHealth = enemyHealth[name] * killMod * killMod;
-    this.worth = (enemyWorth[name] * killMod).toInt();
+    this.worth = (enemyWorth[name] * killMod * killMod).toInt();
   }
 }
 
