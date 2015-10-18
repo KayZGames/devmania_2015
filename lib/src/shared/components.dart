@@ -20,6 +20,9 @@ class SpriteComponent extends Component {
   SpriteComponent(this.name);
 }
 
+class FollowsRoad extends Component {}
+class Road extends Component {}
+
 class Cursor extends Component {}
 
 class Tile extends Component {}

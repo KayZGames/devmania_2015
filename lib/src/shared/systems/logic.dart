@@ -134,3 +134,46 @@ class ExpirationSystem extends EntityProcessingSystem {
     }
   }
 }
+
+class FollowsRoadSystem extends EntityProcessingSystem {
+  Mapper<Position> pm;
+  Mapper<Velocity> vm;
+  GridPositionManager gpm;
+  FollowsRoadSystem() : super(Aspect.getAspectForAllOf([Position, Velocity, FollowsRoad]));
+
+  @override
+  void processEntity(Entity entity) {
+    var p = pm[entity];
+    var v = vm[entity];
+
+    var gridX = p.value.x ~/ 32;
+    var gridY = p.value.y ~/ 32;
+    if (!gpm.roadrMap[gridX + v.value.x.sign.toInt()][gridY + v.value.y.sign.toInt()] && p.value.x % 32 < 1 && p.value.y % 32 < 1) {
+      p.value.x = gridX * 32.0;
+      p.value.y = gridY * 32.0;
+      if (v.value.x == 0.0) {
+        if (gpm.roadrMap[gridX + 1][gridY]) {
+          v.value.x = v.value.y.abs();
+          v.value.y = 0.0;
+        } else if (gpm.roadrMap[gridX - 1][gridY]) {
+          v.value.x = -v.value.y.abs();
+          v.value.y = 0.0;
+        } else {
+          v.value.y = -v.value.y;
+        }
+      } else if (v.value.y == 0.0) {
+        if (gpm.roadrMap[gridX][gridY + 1]) {
+          v.value.y = v.value.x.abs();
+          v.value.x = 0.0;
+        } else if (gpm.roadrMap[gridX][gridY - 1]) {
+          v.value.y = -v.value.x.abs();
+          v.value.x = 0.0;
+        } else {
+          v.value.x = -v.value.x;
+        }
+
+      }
+    }
+
+  }
+}

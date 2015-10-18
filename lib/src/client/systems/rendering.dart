@@ -2,23 +2,26 @@ part of client;
 
 class SpriteRenderingSystem extends EntityProcessingSystem {
   Mapper<Position> pm;
+  Mapper<Velocity> vm;
   Mapper<SpriteComponent> sm;
 
   CanvasRenderingContext2D ctx;
   SpriteSheet sheet;
   SpriteRenderingSystem(this.ctx, this.sheet)
-      : super(Aspect.getAspectForAllOf([Position, SpriteComponent])
+      : super(Aspect.getAspectForAllOf([Position, Velocity, SpriteComponent])
             .exclude([GridPosition]));
 
   @override
   void processEntity(Entity entity) {
     var p = pm[entity];
+    var v = vm[entity];
     var s = sm[entity].name;
     var sprite = sheet[s];
 
     ctx
       ..save()
       ..translate(p.value.x, p.value.y)
+      ..rotate(atan2(v.value.y, v.value.x))
       ..drawImageScaledFromSource(
           sheet.image,
           sprite.src.left,
