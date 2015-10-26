@@ -86,7 +86,7 @@ List<List<int>> road = [
 final GameState gameState = new GameState();
 
 class GameState {
-  int snowflakes = 50;
+  int snowflakes = 100;
   int kills = 0;
   int presents = 10;
   bool get gameOver => presents <= 0;
