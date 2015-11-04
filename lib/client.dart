@@ -77,6 +77,8 @@ class Game extends GameBase {
       GameBase.rendering: [
         new MouseInputSystem(canvas),
         new KeyboardInputSystem(),
+        new MovementSystem(),
+        new FollowsRoadSystem(),
         new CanvasCleaningSystem(canvas, fillStyle: 'black'),
         new TileRenderingSystem(ctx, spriteSheet),
         new SpriteRenderingSystem(ctx, spriteSheet),
@@ -95,8 +97,7 @@ class Game extends GameBase {
         new BulletCollisionSystem(),
         new ExpirationSystem(),
         new StolenPresentSystem(),
-      ],
-      GameBase.physics: [new MovementSystem(), new FollowsRoadSystem(),]
+      ]
     };
   }
 
